@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/baby")
 @RequiredArgsConstructor
@@ -15,6 +17,11 @@ public class BabyController {
     @ResponseStatus(code = HttpStatus.CREATED)
     Baby addBaby(@RequestBody NewBaby newBaby) {
         return babyService.addBaby(newBaby);
+    }
+
+    @GetMapping
+    public List<Baby> getAllBabies() {
+        return babyService.getAllBabies();
     }
 
 }
