@@ -17,7 +17,4 @@ public class BabyController {
         return babyService.addBaby(newBaby);
     }
 
-
-
-
 }

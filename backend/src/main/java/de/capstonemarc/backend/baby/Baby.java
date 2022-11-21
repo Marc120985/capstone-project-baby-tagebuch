@@ -5,4 +5,3 @@ public record Baby(
         String name
 ) {
 }
-
