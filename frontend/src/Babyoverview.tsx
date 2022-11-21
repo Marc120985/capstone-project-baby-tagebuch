@@ -30,6 +30,7 @@ export default function Babyoverview() {
         return <>
             <h1>Baby Overview</h1>
             <section>
+                <ul>{babies.map((baby: any) => <li key={baby.name}>{baby.name}</li>)}</ul>
                 <form onSubmit={postNewBaby}>
                     <label htmlFor="babyname">Name deines Baby's</label>
                     <input id="babyname" onChange={(event: ChangeEvent<HTMLInputElement>) =>
