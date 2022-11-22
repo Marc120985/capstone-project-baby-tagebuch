@@ -12,18 +12,14 @@ export default function App() {
 
     const [babies, setBabies] = React.useState([]);
 
-    useEffect(() => {
-        axios.get("/api/baby")
-            .then((response) => {
-                return response.data
-            })
-            .then((data) => {
-                setBabies(data)
-            })
-            .catch((error) => {console.error("No Babies found! : " + error)
-            })
-    } , [])
 
+    const getAllBabies = () => {
+        axios.get("/api/baby")
+            .then((response) => {return response.data})
+            .then((data) => {setBabies(data)})
+            .catch((error) => {console.error("No Babies found! : " + error)})
+    }
+    useEffect(getAllBabies, [])
 
 
   return <>
@@ -34,7 +30,7 @@ export default function App() {
       <main>
     <Routes>
       <Route path="/babyoverview" element={<Babyoverview babies={babies}/>}/>
-        <Route path={"/newbaby"} element={<NewBaby/>}/>
+        <Route path={"/newbaby"} element={<NewBaby getAllBabies={getAllBabies}/>}/>
         <Route path={"/baby/:id"} element={<BabyPage babies={babies}/>}/>
     </Routes>
     <Link to={"/babyoverview"}>Auswahl Baby</Link>

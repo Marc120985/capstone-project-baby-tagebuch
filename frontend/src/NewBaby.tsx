@@ -2,7 +2,10 @@ import React, {FormEvent} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-export default function NewBaby() {
+type NewBabyProps = {
+    getAllBabies: () => void }
+
+export default function NewBaby(props: NewBabyProps) {
 
     const [newBaby, setNewBaby] = React.useState(
         {
@@ -21,9 +24,11 @@ export default function NewBaby() {
             .then(function (response) {
                 console.log(response);
             })
+            .then(props.getAllBabies)
             .catch((e) => console.log("POST ERROR: " + e))
         setNewBaby({name: "", birthday: "", weight: "", height: "", gender: ""});
     }
+
 
     function handleChange(event: any) {
         setNewBaby({...newBaby, [event.target.name]: event.target.value});
