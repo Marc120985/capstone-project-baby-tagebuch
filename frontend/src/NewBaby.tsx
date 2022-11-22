@@ -35,15 +35,15 @@ export default function NewBaby() {
         <h2>Mein neues Baby anlegen</h2>
         <form onSubmit={postNewBaby}>
             <label htmlFor="name">Name</label>
-            <input id="name" name="name" value={newBaby.name} onChange={handleChange}/>
+            <input id="name" name="name" value={newBaby.name} onChange={handleChange} placeholder={"John"}/>
             <label htmlFor="birthday">Geburtstag</label>
-            <input id="birthday" name="birthday" value={newBaby.birthday} onChange={handleChange}/>
+            <input id="birthday" name="birthday" value={newBaby.birthday} onChange={handleChange} placeholder={"01.01.2022"}/>
             <label htmlFor="weight">Gewicht</label>
-            <input id="weight" name="weight" value={newBaby.weight} onChange={handleChange}/>
+            <input id="weight" name="weight" value={newBaby.weight} onChange={handleChange} placeholder={"Gewicht in Gramm"}/>
             <label htmlFor="height">Größe</label>
-            <input id="height" name="height" value={newBaby.height} onChange={handleChange}/>
+            <input id="height" name="height" value={newBaby.height} onChange={handleChange} placeholder={"Größe in cm"}/>
             <label htmlFor="gender">Geschlecht</label>
-            <input id="gender" name="gender" value={newBaby.gender} onChange={handleChange}/>
+            <input id="gender" name="gender" value={newBaby.gender} onChange={handleChange} placeholder={"m/w/d"}/>
             <button type="submit">Speichern</button>
         </form>
         <Link to={"/"}>Zurück zur Übersicht</Link><br/>
