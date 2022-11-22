@@ -26,8 +26,7 @@ class IntegrationTest {
     void addBaby() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/baby")
                 .contentType(APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new NewBaby("Baby")))
-        )
+                .content(objectMapper.writeValueAsString(new NewBaby("Baby", "01.01.2000", "3.5", "76", "w"))))
                 .andExpect(status().is(201));
 
 
