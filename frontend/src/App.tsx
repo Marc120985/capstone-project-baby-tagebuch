@@ -2,6 +2,8 @@ import React from 'react';
 import {Route, Routes} from "react-router";
 import Babyoverview from "./Babyoverview";
 import styled from "styled-components";
+import NewBaby from "./NewBaby";
+import { Link } from 'react-router-dom';
 
 
 export default function App() {
@@ -13,8 +15,9 @@ export default function App() {
       <main>
     <Routes>
       <Route path="/babyoverview" element={<Babyoverview/>}/>
+        <Route path={"/newbaby"} element={<NewBaby/>}/>
     </Routes>
-
+    <Link to={"/babyoverview"}>Auswahl Baby</Link>
     </main>
 
     <footer></footer>
