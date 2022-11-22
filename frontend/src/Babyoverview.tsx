@@ -1,28 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
 import {Link} from "react-router-dom";
+import {BabyModel} from "./BabyModel";
 
-export default function Babyoverview() {
-    const [babies, setBabies] = useState([])
+type BabyoverviewProps = {babies: BabyModel[]}
 
-    useEffect(() => {
-        getAllBabys()
-    }, [])
-
-
-    const getAllBabys = () => {
-        axios.get("/api/baby")
-            .then((response) => {
-                setBabies(response.data)
-            })
-            .catch((e) => console.log("GET ERROR: " + e))}
-
-
+export default function Babyoverview(props: BabyoverviewProps) {
 
         return <>
             <h1>Baby Overview</h1>
             <section>
-                <ul>{babies.map((baby: any) => <li><Link to={"/baby/" + baby.id}>{baby.name}</Link></li>)}</ul>
+                <ul>{props.babies.map((baby: BabyModel) => <li><Link to={"/baby/" + baby.id}>{baby.name}</Link></li>)}</ul>
             </section>
             <Link to={"/newbaby"}>Neues Baby anlegen</Link><br/>
             <Link to={"/"}>Zurück zur Übersicht</Link><br/>
