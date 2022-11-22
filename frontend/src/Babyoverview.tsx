@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {} from 'react';
 import {Link} from "react-router-dom";
 import {BabyModel} from "./BabyModel";
 
-type BabyoverviewProps = {babies: BabyModel[]}
+
+type BabyoverviewProps = {
+    babies: BabyModel[]}
 
 export default function Babyoverview(props: BabyoverviewProps) {
 
