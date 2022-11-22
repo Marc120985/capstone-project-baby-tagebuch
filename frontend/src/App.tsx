@@ -4,6 +4,7 @@ import Babyoverview from "./Babyoverview";
 import styled from "styled-components";
 import NewBaby from "./NewBaby";
 import { Link } from 'react-router-dom';
+import BabyPage from "./BabyPage";
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
     <Routes>
       <Route path="/babyoverview" element={<Babyoverview/>}/>
         <Route path={"/newbaby"} element={<NewBaby/>}/>
+        <Route path={"/baby/:id"} element={<BabyPage/>}/>
     </Routes>
     <Link to={"/babyoverview"}>Auswahl Baby</Link>
     </main>
