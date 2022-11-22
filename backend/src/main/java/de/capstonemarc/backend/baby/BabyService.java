@@ -14,7 +14,12 @@ public class BabyService {
 
     public Baby addBaby(NewBaby newBaby) {
         String id = babyUtils.generateUUID();
-        Baby baby = new Baby(id, newBaby.name());
+        Baby baby = new Baby(id,
+                newBaby.name(),
+                newBaby.birthday(),
+                newBaby.weight(),
+                newBaby.height(),
+                newBaby.gender());
         return babyRepository.save(baby);
     }
 
