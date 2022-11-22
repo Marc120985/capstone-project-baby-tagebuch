@@ -1,11 +1,12 @@
 import React, {FormEvent} from 'react';
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 type NewBabyProps = {
     getAllBabies: () => void }
 
 export default function NewBaby(props: NewBabyProps) {
+    const navigate = useNavigate();
 
     const [newBaby, setNewBaby] = React.useState(
         {
@@ -25,6 +26,7 @@ export default function NewBaby(props: NewBabyProps) {
                 console.log(response);
             })
             .then(props.getAllBabies)
+            .then(() => navigate("/babyoverview"))
             .catch((e) => console.log("POST ERROR: " + e))
         setNewBaby({name: "", birthday: "", weight: "", height: "", gender: ""});
     }
