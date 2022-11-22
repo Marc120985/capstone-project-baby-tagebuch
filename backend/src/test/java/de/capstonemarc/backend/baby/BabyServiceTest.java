@@ -20,8 +20,12 @@ class BabyServiceTest {
         //given
         String id = "123";
         String name = "Hansi";
-        Baby babyWithId = new Baby(id, name);
-        NewBaby babyWithoutId = new NewBaby(name);
+        String birthday = "01.01.2000";
+        String weight = "3.5";
+        String height = "76";
+        String gender = "w";
+        Baby babyWithId = new Baby(id, name,birthday,weight,height,gender);
+        NewBaby babyWithoutId = new NewBaby(name, birthday,weight,height,gender);
         //when
         when(babyUtils.generateUUID()).thenReturn(id);
         when(babyRepository.save(babyWithId)).thenReturn(babyWithId);
