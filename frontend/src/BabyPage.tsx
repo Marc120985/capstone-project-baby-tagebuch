@@ -38,8 +38,8 @@ export default function BabyPage(props: babyProps) {
             <StyledP>{foundBaby.gender}</StyledP>
         </StyledSection>
         <StyledSection2>
-        <StyledButton>Essen</StyledButton>
-        <StyledButton>Schlafen</StyledButton>
+            <StyledButton>Essen</StyledButton>
+            <StyledButton>Schlafen</StyledButton>
         </StyledSection2>
         <StyledSection2>
             <StyledButton3>Update Baby</StyledButton3>
@@ -97,8 +97,8 @@ const StyledH4 = styled.h4`
   font-size: 2.6rem;
   color: var(--color-background);
   text-shadow: 1px 1px 1px black;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 `
 
 const StyledP = styled.p`
@@ -129,16 +129,14 @@ const StyledButton = styled.button`
   font-family: ubuntu, sans-serif;
 `
 const StyledButton3 = styled.button`
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    background-color: transparent;
-    border: 1px solid var(--color-background);
-    border-radius: 1rem;
-    margin: 0.5rem;
-    color: var(--color-background);
-    font-family: ubuntu, sans-serif;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: transparent;
+  border: 1px solid var(--color-background);
+  border-radius: 1rem;
+  margin: 0.5rem;
+  color: var(--color-background);
+  font-family: ubuntu, sans-serif;
 `
-
-

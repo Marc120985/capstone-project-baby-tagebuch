@@ -65,5 +65,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `
 const StyledButton = styled.button`
-    border: none;
-    background-color: transparent;`
+  border: none;
+  background-color: transparent;
+`

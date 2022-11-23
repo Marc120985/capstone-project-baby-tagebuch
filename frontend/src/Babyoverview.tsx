@@ -23,7 +23,7 @@ export default function Babyoverview(props: BabyoverviewProps) {
         </StyledSection>
         <div>
             <StyledButton2>
-           <StyledLink2 to={"/"}>Zurück zur Übersicht</StyledLink2>
+                <StyledLink2 to={"/"}>Zurück zur Übersicht</StyledLink2>
             </StyledButton2>
         </div>
     </>;
@@ -69,11 +69,11 @@ const StyledLink = styled(Link)`
 `
 
 const StyledUl = styled.ul`
-    padding: 0;
+  padding: 0;
 `
 
 const StyledLink2 = styled(Link)`
-    padding-top: 1rem;
+  padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 5rem;
   padding-right: 5rem;
@@ -88,11 +88,11 @@ const StyledLink2 = styled(Link)`
   border: 1px solid white;
 `
 const StyledButton = styled.button`
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 `
 const StyledButton2 = styled.button`
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    `
+  border: none;
+  background-color: transparent;
+  width: 100%;
+`
