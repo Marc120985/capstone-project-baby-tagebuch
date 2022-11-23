@@ -64,11 +64,9 @@ export default function NewBaby(props: NewBabyProps) {
                 </StyleDiv>
             </StyledForm>
         </StyledSection>
-        <div>
-            <StyledButton2>
-                <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
-            </StyledButton2>
-        </div>
+        <StyledButton2>
+            <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
+        </StyledButton2>
     </>;
 }
 

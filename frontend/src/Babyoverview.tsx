@@ -21,11 +21,9 @@ export default function Babyoverview(props: BabyoverviewProps) {
         <StyledSection>
             <StyledButton><StyledLink to={"/newbaby"}>Neues Baby anlegen</StyledLink></StyledButton>
         </StyledSection>
-        <div>
-            <StyledButton2>
-                <StyledLink2 to={"/"}>Zurück zur Übersicht</StyledLink2>
-            </StyledButton2>
-        </div>
+        <StyledButton2>
+            <StyledLink2 to={"/"}>Zurück zur Übersicht</StyledLink2>
+        </StyledButton2>
     </>;
 }
 

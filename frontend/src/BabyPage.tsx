@@ -26,7 +26,6 @@ export default function BabyPage(props: babyProps) {
         <StyledHeader>
             <h1>{foundBaby.name}</h1>
         </StyledHeader>
-
         <StyledSection>
             <StyledH4>Geburtstag</StyledH4>
             <StyledP>{foundBaby.birthday}</StyledP>
@@ -45,12 +44,9 @@ export default function BabyPage(props: babyProps) {
             <StyledButton3>Update Baby</StyledButton3>
             <StyledButton3>Delete Baby</StyledButton3>
         </StyledSection2>
-
-        <div>
-            <StyledButton2>
-                <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
-            </StyledButton2>
-        </div>
+        <StyledButton2>
+            <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
+        </StyledButton2>
     </>;
 }
 
