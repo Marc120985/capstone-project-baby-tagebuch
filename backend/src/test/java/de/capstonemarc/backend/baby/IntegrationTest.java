@@ -24,18 +24,16 @@ class IntegrationTest {
     @Test
     @DirtiesContext
     void addBaby() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/baby")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/babies")
                 .contentType(APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new NewBaby("Baby", "01.01.2000", "3.5", "76", "w"))))
                 .andExpect(status().is(201));
-
-
     }
 
     @Test
     @DirtiesContext
     void getAllBabies() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/baby"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/babies"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[]"));
     }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/baby")
+@RequestMapping("/api/babies")
 @RequiredArgsConstructor
 public class BabyController {
 

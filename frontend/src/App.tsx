@@ -13,7 +13,7 @@ export default function App() {
 
 
     const getAllBabies = () => {
-        axios.get("/api/baby")
+        axios.get("/api/babies")
             .then((response) => {
                 return response.data
             })
