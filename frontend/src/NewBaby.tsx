@@ -22,9 +22,6 @@ export default function NewBaby(props: NewBabyProps) {
     const postNewBaby = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axios.post('/api/babies', newBaby)
-            .then(function (response) {
-                console.log(response);
-            })
             .then(props.getAllBabies)
             .then(() => navigate("/babyoverview"))
             .catch((e) => console.log("POST ERROR: " + e))
