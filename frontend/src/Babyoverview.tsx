@@ -15,11 +15,17 @@ export default function Babyoverview(props: BabyoverviewProps) {
             <h1>Deine Baby`s</h1>
         </StyledHeader>
         <StyledSection>
-            <ul>{props.babies.map((baby: BabyModel) => <StyledLi><StyledLink
-                to={"/baby/" + baby.id}>{baby.name}</StyledLink></StyledLi>)}</ul>
+            <StyledUl>{props.babies.map((baby: BabyModel) => <StyledLi><StyledButton><StyledLink
+                to={"/baby/" + baby.id}>{baby.name}</StyledLink></StyledButton></StyledLi>)}</StyledUl>
         </StyledSection>
-        <Link to={"/newbaby"}>Neues Baby anlegen</Link><br/>
-        <Link to={"/"}>Zurück zur Übersicht</Link><br/>
+        <StyledSection>
+            <StyledButton><StyledLink to={"/newbaby"}>Neues Baby anlegen</StyledLink></StyledButton>
+        </StyledSection>
+        <div>
+            <StyledButton2>
+           <StyledLink2 to={"/"}>Zurück zur Übersicht</StyledLink2>
+            </StyledButton2>
+        </div>
     </>;
 }
 
@@ -48,17 +54,45 @@ const StyledLi = styled.li`
 `
 
 const StyledLink = styled(Link)`
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    background-color: var(--color-background);
-    display: flex;
-    justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
   border-radius: 1rem;
   color: var(--color-white);
   font-family: Ubuntu, sans-serif;
   text-decoration: none;
   margin: 0.5rem;
-  
 `
+
+const StyledUl = styled.ul`
+    padding: 0;
+`
+
+const StyledLink2 = styled(Link)`
+    padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  border-radius: 1rem;
+  color: var(--color-white);
+  font-family: Ubuntu, sans-serif;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: 1px solid white;
+`
+const StyledButton = styled.button`
+    border: none;
+    background-color: transparent;
+`
+const StyledButton2 = styled.button`
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    `
