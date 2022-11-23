@@ -19,11 +19,9 @@ export default function NewBaby(props: NewBabyProps) {
             gender: "",
         });
 
-    const baseUrl = '/api/baby';
-
     const postNewBaby = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axios.post(baseUrl, newBaby)
+        axios.post('/api/babies', newBaby)
             .then(function (response) {
                 console.log(response);
             })
