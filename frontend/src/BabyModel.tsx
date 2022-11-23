@@ -1,7 +1,7 @@
 export type BabyModel = {
     id: string,
     name: string,
-    birthdate: string,
+    birthday: string,
     weight: string,
     height: string,
     gender: string,

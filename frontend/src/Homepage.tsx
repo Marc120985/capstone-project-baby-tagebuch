@@ -13,7 +13,7 @@ export default function Homepage() {
                 <StyledImg src={process.env.PUBLIC_URL + '/BabyDiary_k.png'} alt="Baby"/>
             </StyledDiv>
             <StyledDiv2>
-                <StyledLink to={"/babyoverview"}>Eingang</StyledLink>
+                <StyledButton><StyledLink to={"/babyoverview"}>Eingang</StyledLink></StyledButton>
             </StyledDiv2>
         </main>
         <footer></footer>
@@ -64,3 +64,6 @@ const StyledLink = styled(Link)`
   font-family: Ubuntu, sans-serif;
   text-decoration: none;
 `
+const StyledButton = styled.button`
+    border: none;
+    background-color: transparent;`
