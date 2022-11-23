@@ -4,7 +4,8 @@ import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 
 type NewBabyProps = {
-    getAllBabies: () => void }
+    getAllBabies: () => void
+}
 
 export default function NewBaby(props: NewBabyProps) {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function NewBaby(props: NewBabyProps) {
 
     const baseUrl = '/api/baby';
 
-    const postNewBaby = (event:FormEvent<HTMLFormElement>) => {
+    const postNewBaby = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axios.post(baseUrl, newBaby)
             .then(function (response) {
@@ -32,40 +33,42 @@ export default function NewBaby(props: NewBabyProps) {
         setNewBaby({name: "", birthday: "", weight: "", height: "", gender: ""});
     }
 
-
     function handleChange(event: any) {
         setNewBaby({...newBaby, [event.target.name]: event.target.value});
     }
 
 
-
     return <>
         <StyledHeader>
-        <h1>Unser neuer Nachwuchs</h1>
+            <h1>Unser neuer Nachwuchs</h1>
         </StyledHeader>
         <StyledSection>
-        <StyledForm onSubmit={postNewBaby}>
-            <StyleDiv>
-            <StyledLabel htmlFor="name">Name</StyledLabel>
-            <StyledInput id="name" name="name" value={newBaby.name} onChange={handleChange} placeholder={"John"}/>
-            <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
-            <StyledInput id="birthday" name="birthday" value={newBaby.birthday} onChange={handleChange} placeholder={"01.01.2022"}/>
-            <StyledLabel htmlFor="weight">Gewicht</StyledLabel>
-            <StyledInput id="weight" name="weight" value={newBaby.weight} onChange={handleChange} placeholder={"Gewicht in Gramm"}/>
-            <StyledLabel htmlFor="height">Größe</StyledLabel>
-            <StyledInput id="height" name="height" value={newBaby.height} onChange={handleChange} placeholder={"Größe in cm"}/>
-            <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
-            <StyledInput id="gender" name="gender" value={newBaby.gender} onChange={handleChange} placeholder={"Junge/Mädchen/Divers"}/>
-                <StyledButton type="submit">Speichern</StyledButton>
-            </StyleDiv>
-        </StyledForm>
+            <StyledForm onSubmit={postNewBaby}>
+                <StyleDiv>
+                    <StyledLabel htmlFor="name">Name</StyledLabel>
+                    <StyledInput id="name" name="name" value={newBaby.name} onChange={handleChange}
+                                 placeholder={"John"}/>
+                    <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
+                    <StyledInput id="birthday" name="birthday" value={newBaby.birthday} onChange={handleChange}
+                                 placeholder={"01.01.2022"}/>
+                    <StyledLabel htmlFor="weight">Gewicht</StyledLabel>
+                    <StyledInput id="weight" name="weight" value={newBaby.weight} onChange={handleChange}
+                                 placeholder={"Gewicht in Gramm"}/>
+                    <StyledLabel htmlFor="height">Größe</StyledLabel>
+                    <StyledInput id="height" name="height" value={newBaby.height} onChange={handleChange}
+                                 placeholder={"Größe in cm"}/>
+                    <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
+                    <StyledInput id="gender" name="gender" value={newBaby.gender} onChange={handleChange}
+                                 placeholder={"Junge/Mädchen/Divers"}/>
+                    <StyledButton type="submit">Speichern</StyledButton>
+                </StyleDiv>
+            </StyledForm>
         </StyledSection>
         <div>
             <StyledButton2>
                 <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
             </StyledButton2>
         </div>
-
     </>;
 }
 
@@ -88,10 +91,10 @@ const StyledSection = styled.section`
 `
 
 const StyledForm = styled.form`
-    display: flex;
-    align-self: center;
-    align-items: center;
-    `
+  display: flex;
+  align-self: center;
+  align-items: center;
+`
 
 const StyleDiv = styled.div`
   display: flex;
@@ -104,8 +107,8 @@ const StyledLabel = styled.label`
   font-size: 2.6rem;
   color: var(--color-background);
   text-shadow: 1px 1px 1px black;
-  margin-block-start: 0px;
-  margin-block-end: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 `
 const StyledButton2 = styled.button`
   border: none;
@@ -150,4 +153,4 @@ const StyledInput = styled.input`
   border: 1px solid var(--color-background);
   border-radius: 1rem;
   margin-bottom: 1rem;
-  `
+`
