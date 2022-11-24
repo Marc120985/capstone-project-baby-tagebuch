@@ -1,9 +1,9 @@
 package de.capstonemarc.backend.baby;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -61,4 +61,20 @@ class BabyServiceTest {
         assertEquals(testBaby, actual);
     }
 
+    @Test
+    void deleteBabyFromDatabaseFail() {
+        //given
+        String testToDeleteString = "UUIDFromController";
+        //when
+        when(babyRepository.findById(testToDeleteString)).thenReturn(Optional.empty());
+        //then
+        String message2 = null;
+        try {
+            babyService.deleteBaby(testToDeleteString);
+        } catch (IllegalArgumentException e) {
+            message2 = e.getMessage();
+        }
+
+        assertEquals(message2, "Baby with id " + testToDeleteString + " not found");
+    }
 }
