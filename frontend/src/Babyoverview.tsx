@@ -31,11 +31,6 @@ const StyledHeader = styled.header`
   background-color: var(--color-white);
   display: flex;
   justify-content: center;
-
-  h1 {
-    font-family: Gistesy, sans-serif;
-    font-size: 3.5rem;
-  }
 `
 
 const StyledSection = styled.section`

@@ -1,28 +1,61 @@
 
 body {
-  background-color: var(--color-background);
-  margin: auto;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    background-color: var(--color-background);
+    margin: auto;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Gistesy',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 100%;
-  height: 100%;
-  --color-white: #fff;
-  --color-background: #49c19b;
-  --color-black: #000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100%;
+    --color-white: #fff;
+    --color-background: #49c19b;
+    --color-black: #000;
 
 }
 
+h1 {
+    font-family: Kindergarten, sans-serif;
+}
 
-@media (min-width:600px)  {body{width: 667px;
-  height: 100%;}  }
-@media (min-width:801px)  {body{width: 1024px;
-  height: 100%;} }
+@media (min-width: 600px) {
+    body {
+        width: 667px;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 3.2rem;
+    }
+}
+
+@media (min-width: 801px) {
+    body {
+        width: 1024px;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@font-face {
+    font-family: 'Gistesy';
+    src: local('Gistesy'), url(./fonts/Gistesy.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Donellia';
+    src: local('Donellia'), url(./fonts/DonelliaDemoRegular.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Kindergarten';
+    src: local('Kindergarten'), url(./fonts/Kindergarten.ttf) format('truetype');
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
