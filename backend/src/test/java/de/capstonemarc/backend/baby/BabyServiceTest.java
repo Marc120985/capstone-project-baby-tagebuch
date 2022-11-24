@@ -46,4 +46,18 @@ class BabyServiceTest {
         verify(babyRepository).findAll();
         assertEquals(testBabies, actual);
     }
+
+    @Test
+    void deleteBabyFromDatabase() {
+        //given
+        String testToDeleteString = "UUIDFromController";
+        Baby testBaby = new Baby(testToDeleteString, "Hasi", "12.13.2055", "3500", "76", "w");
+        //when
+        when(babyRepository.findById(testToDeleteString)).thenReturn(java.util.Optional.of(testBaby));
+        Baby actual = babyService.deleteBaby(testToDeleteString);
+        //then
+        verify(babyRepository).findById(testToDeleteString);
+        verify(babyRepository).delete(testBaby);
+        assertEquals(testBaby, actual);
+    }
 }
