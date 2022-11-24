@@ -26,4 +26,10 @@ public class BabyService {
     public List<Baby> getAllBabies() {
         return babyRepository.findAll();
     }
+
+    public Baby deleteBaby(String id) {
+        Baby baby = babyRepository.findById(id).orElseThrow();
+        babyRepository.delete(baby);
+        return baby;
+    }
 }
