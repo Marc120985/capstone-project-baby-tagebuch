@@ -5,6 +5,7 @@ import NewBaby from "./NewBaby";
 import BabyPage from "./BabyPage";
 import axios from "axios";
 import Homepage from "./Homepage";
+import styled from "styled-components";
 
 
 export default function App() {
@@ -36,6 +37,15 @@ export default function App() {
                 <Route path={"/baby/:id"} element={<BabyPage babies={babies}/>}/>
             </Routes>
         </main>
+        <footer><StyledP>© 2022 by Marc</StyledP></footer>
 
     </>;
 }
+
+const StyledP = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5rem;
+  color: var(--color-white);
+`

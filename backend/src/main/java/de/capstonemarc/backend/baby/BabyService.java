@@ -28,7 +28,8 @@ public class BabyService {
     }
 
     public Baby deleteBaby(String id) {
-        Baby baby = babyRepository.findById(id).orElseThrow();
+        Baby baby = babyRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
         babyRepository.delete(baby);
         return baby;
     }
