@@ -95,7 +95,6 @@ const StyledButton2 = styled.button`
   width: 100%;
 `
 
-
 const StyledP = styled.p`
   font-family: Gruenewald_VA_normal, sans-serif;
   font-size: 1.5rem;
