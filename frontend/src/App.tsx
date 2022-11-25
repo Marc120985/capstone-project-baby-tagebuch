@@ -34,7 +34,7 @@ export default function App() {
                 <Route path={"/"} element={<Homepage/>}/>
                 <Route path={"/babyoverview"} element={<Babyoverview babies={babies}/>}/>
                 <Route path={"/newbaby"} element={<NewBaby getAllBabies={getAllBabies}/>}/>
-                <Route path={"/baby/:id"} element={<BabyPage babies={babies}/>}/>
+                <Route path={"/baby/:id"} element={<BabyPage babies={babies} getAllBabies={getAllBabies}/>}/>
             </Routes>
         </main>
         <footer><StyledP>© 2022 by Marc</StyledP></footer>

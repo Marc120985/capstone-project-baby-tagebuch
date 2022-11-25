@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import {BabyModel} from "./BabyModel";
 import {useParams} from "react-router";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
-type babyProps = { babies: BabyModel[] }
+type babyProps = {
+    babies: BabyModel[],
+    getAllBabies: () => void
+}
 
 export default function BabyPage(props: babyProps) {
 
     const params = useParams()
     const id = params.id;
+    const navigate = useNavigate();
 
     if (!id) {
         return <div>ID Error</div>
@@ -19,6 +24,14 @@ export default function BabyPage(props: babyProps) {
 
     if (!foundBaby) {
         return <div>Baby nicht gefunden</div>
+    }
+
+    function deleteBaby(event: FormEvent<HTMLButtonElement>) {
+        event.preventDefault()
+        axios.delete("/api/babies/" + id)
+            .then(props.getAllBabies)
+            .then(() => navigate("/babyoverview"))
+            .catch(error => console.log("DELETE Error: " + error))
     }
 
 
@@ -41,7 +54,7 @@ export default function BabyPage(props: babyProps) {
             <StyledButton>Schlafen</StyledButton>
         </StyledSection2>
         <StyledSection2>
-            <StyledButton3>Löschen</StyledButton3>
+            <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
         </StyledSection2>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
