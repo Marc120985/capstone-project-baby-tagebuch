@@ -24,7 +24,7 @@ public class BabyController {
         return babyService.getAllBabies();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public Baby deleteBaby(@PathVariable String id) {
         return babyService.deleteBaby(id);
     }
