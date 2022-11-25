@@ -91,7 +91,7 @@ const StyleDiv = styled.div`
 `;
 
 const StyledLabel = styled.label`
-  font-family: Gistesy, sans-serif;
+  font-family: KGPrimaryPenmanshipLined, sans-serif;
   font-size: 2.6rem;
   color: var(--color-background);
   text-shadow: 1px 1px 1px black;
@@ -133,8 +133,8 @@ const StyledButton = styled.button`
 `
 
 const StyledInput = styled.input`
-  font-family: ubuntu, sans-serif;
-  font-size: 0.8rem;
+  font-family: Gruenewald_VA_normal, sans-serif;
+  font-size: 1.2rem;
   color: var(--color-black);
   text-shadow: 1px 1px 1px var(--color-background);
   padding: 5px 20px 5px 20px;
