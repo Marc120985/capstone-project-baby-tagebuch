@@ -33,4 +33,17 @@ public class BabyService {
         babyRepository.delete(baby);
         return baby;
     }
+
+    public Baby updateBaby(BabyToUpdateDTO baby) {
+        Baby babyToUpdate = babyRepository.findById(baby.id()).orElseThrow(
+                () -> new IllegalArgumentException("Baby with id " + baby.id() + " not found"));
+        Baby updatedBaby = BabyToUpdateDTO.updateBaby(
+                babyToUpdate.id(),
+                baby.name(),
+                baby.birthday(),
+                baby.weight(),
+                baby.height(),
+                baby.gender());
+        return babyRepository.save(updatedBaby);
+    }
 }
