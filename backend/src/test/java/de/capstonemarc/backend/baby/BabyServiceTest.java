@@ -1,6 +1,7 @@
 package de.capstonemarc.backend.baby;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,8 +25,8 @@ class BabyServiceTest {
         String weight = "3.5";
         String height = "76";
         String gender = "w";
-        Baby babyWithId = new Baby(id, name,birthday,weight,height,gender);
-        NewBaby babyWithoutId = new NewBaby(name, birthday,weight,height,gender);
+        Baby babyWithId = new Baby(id, name, birthday, weight, height, gender);
+        NewBaby babyWithoutId = new NewBaby(name, birthday, weight, height, gender);
         //when
         when(babyUtils.generateUUID()).thenReturn(id);
         when(babyRepository.save(babyWithId)).thenReturn(babyWithId);
@@ -94,4 +95,22 @@ class BabyServiceTest {
         verify(babyRepository).save(updatetBaby);
         assertEquals(updatetBaby, actual);
     }
+
+    @Test
+    void updateBabyInDatabaseWithoutId() {
+        //given
+        String id = "345";
+        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w");
+        //when
+        when(babyRepository.findById(id)).thenReturn(Optional.empty());
+        //then
+        String message2 = null;
+        try {
+            babyService.updateBaby(babyToUpdate);
+        } catch (IllegalArgumentException e) {
+            message2 = e.getMessage();
+        }
+        assertEquals(message2, "Baby with id " + id + " not found");
+    }
+    
 }
