@@ -40,6 +40,9 @@ export default function BabyPage(props: babyProps) {
             <StyledButton>Essen</StyledButton>
             <StyledButton>Schlafen</StyledButton>
         </StyledSection2>
+        <StyledSection2>
+            <StyledButton3>Löschen</StyledButton3>
+        </StyledSection2>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
         </StyledButton2>
@@ -113,6 +116,18 @@ const StyledButton = styled.button`
   border-radius: 1rem;
   margin: 0.5rem;
   color: var(--color-white);
+  font-family: ubuntu, sans-serif;
+`
+const StyledButton3 = styled.button`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: transparent;
+  border: 1px solid var(--color-deleteRed);
+  border-radius: 1rem;
+  margin: 0.5rem;
+  color: var(--color-deleteRed);
   font-family: ubuntu, sans-serif;
 `
 
