@@ -40,13 +40,13 @@ export default function BabyPage(props: babyProps) {
             <h1>{foundBaby.name}</h1>
         </StyledHeader>
         <StyledSection>
-            <StyledH4>Geburtstag</StyledH4>
+            <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
             <StyledP>{foundBaby.birthday}</StyledP>
-            <StyledH4>Gewicht in Gramm</StyledH4>
+            <StyledLabel htmlFor="weight">Gewicht in Gramm</StyledLabel>
             <StyledP>{foundBaby.weight}</StyledP>
-            <StyledH4>Größe in Zentimetern</StyledH4>
+            <StyledLabel htmlFor="height">Größe in Zentimeter</StyledLabel>
             <StyledP>{foundBaby.height}</StyledP>
-            <StyledH4>Geschlecht</StyledH4>
+            <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
             <StyledP>{foundBaby.gender}</StyledP>
         </StyledSection>
         <StyledSection2>
@@ -95,17 +95,9 @@ const StyledButton2 = styled.button`
   width: 100%;
 `
 
-const StyledH4 = styled.h4`
-  font-family: Gistesy, sans-serif;
-  font-size: 2.6rem;
-  color: var(--color-background);
-  text-shadow: 1px 1px 1px black;
-  margin-block-start: 0;
-  margin-block-end: 0;
-`
 
 const StyledP = styled.p`
-  font-family: ubuntu, sans-serif;
+  font-family: Gruenewald_VA_normal, sans-serif;
   font-size: 1.5rem;
   color: var(--color-black);
   text-shadow: 1px 1px 1px var(--color-background);
@@ -143,4 +135,11 @@ const StyledButton3 = styled.button`
   color: var(--color-deleteRed);
   font-family: ubuntu, sans-serif;
 `
-
+const StyledLabel = styled.label`
+  font-family: KGPrimaryPenmanshipLined, sans-serif;
+  font-size: 2.6rem;
+  color: var(--color-background);
+  text-shadow: 1px 1px 1px black;
+  margin-block-start: 0;
+  margin-block-end: 0;
+`
