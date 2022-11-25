@@ -133,4 +133,74 @@ class IntegrationTest {
                         }]
                         """.replace("<id>", baby.id())));
     }
+
+    @DirtiesContext
+    @Test
+    void updatebabyWithBeforePostBabyAndChangedWeightFail() throws Exception {
+        //given
+        String content = mockMvc.perform(MockMvcRequestBuilders.post("/api/babies")
+
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "name": "Rabbit",
+                                    "birthday": "01.01.2000",
+                                    "weight": "3500",
+                                    "height": "76",
+                                    "gender": "w"
+                                }
+                                """))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+        Baby baby = objectMapper.readValue(content, Baby.class);
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/babies/"))
+                .andExpect(status().is(200))
+                .andExpect(content().json("""
+                        [{
+                            "id": "<id>",
+                            "name": "Rabbit",
+                            "birthday": "01.01.2000",
+                            "weight": "3500",
+                            "height": "76",
+                            "gender": "w"
+                        }]
+                        """.replace("<id>", baby.id())));
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/babies/" + baby.id())
+
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "id": "<id>",
+                                    "name": "Rabbit",
+                                    "birthday": "01.01.2000",
+                                    "weight": "8000",
+                                    "height": "76",
+                                    "gender": "w"
+                                }
+                                """.replace("<id>", baby.id())))
+                .andExpect(status().is(200))
+                .andReturn().getResponse().getContentAsString();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/babies/"))
+                .andExpect(status().is(200))
+                .andExpect(content().json("""
+                        [{
+                            "id": "<id>",
+                            "name": "Rabbit",
+                            "birthday": "01.01.2000",
+                            "weight": "8000",
+                            "height": "76",
+                            "gender": "w"
+                        }]
+                        """.replace("<id>", baby.id())));
+    }
+
+    @Test
+    @DirtiesContext
+    void updateBabyWithNotExistingIDAndReturn400() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/babies/1"))
+                .andExpect(status().is(400));
+    }
 }
