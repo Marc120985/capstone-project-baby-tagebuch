@@ -77,4 +77,21 @@ class BabyServiceTest {
 
         assertEquals(message2, "Baby with id " + testToDeleteString + " not found");
     }
+
+    @Test
+    void updateBabyInDatabase() {
+        //given
+        String id = "123";
+        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w");
+        Baby updatetBaby = new Baby(id, "Hansi", "01.01.2000", "3500", "76", "w");
+        Baby currentBaby = new Baby(id, "Klaus", "01.01.2000", "3500", "76", "w");
+        //when
+        when(babyRepository.findById(id)).thenReturn(Optional.of(currentBaby));
+        when(babyRepository.save(updatetBaby)).thenReturn(updatetBaby);
+        Baby actual = babyService.updateBaby(babyToUpdate);
+        //then
+        verify(babyRepository).findById(id);
+        verify(babyRepository).save(updatetBaby);
+        assertEquals(updatetBaby, actual);
+    }
 }
