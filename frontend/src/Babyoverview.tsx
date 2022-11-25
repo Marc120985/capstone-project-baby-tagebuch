@@ -15,8 +15,10 @@ export default function Babyoverview(props: BabyoverviewProps) {
             <h1>Deine Baby`s</h1>
         </StyledHeader>
         <StyledSection>
-            <StyledUl>{props.babies.map((baby: BabyModel) => <StyledLi><StyledButton><StyledLink
-                to={"/baby/" + baby.id}>{baby.name}</StyledLink></StyledButton></StyledLi>)}</StyledUl>
+            <StyledUl>{props.babies.map((baby: BabyModel) => <StyledLi key={baby.id}><StyledButton><StyledLink
+                to={"/baby/" + baby.id}>{baby.name}</StyledLink></StyledButton>
+
+            </StyledLi>)}</StyledUl>
         </StyledSection>
         <StyledSection>
             <StyledButton><StyledLink to={"/newbaby"}>Neues Baby anlegen</StyledLink></StyledButton>
