@@ -1,21 +1,20 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import {BabyModel} from "./BabyModel";
 import {useParams} from "react-router";
 import styled from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
-
+import axios from "axios";
 
 type babyProps = {
     babies: BabyModel[],
     getAllBabies: () => void
 }
 
-export default function BabyPage(props: babyProps) {
+export default function BabyEditPage(props: babyProps) {
 
     const params = useParams()
     const id = params.id;
     const navigate = useNavigate();
-
 
     if (!id) {
         return <div>ID Error</div>
@@ -27,36 +26,42 @@ export default function BabyPage(props: babyProps) {
         return <div>Baby nicht gefunden</div>
     }
 
+    // const [name, setName] = useState(props.foundBaby)
 
-    function handleEditPage() {
-        navigate("/babyedit/" + id)
+    function deleteBaby(event: FormEvent<HTMLButtonElement>) {
+        event.preventDefault()
+        axios.delete("/api/babies/" + id)
+            .then(props.getAllBabies)
+            .then(() => navigate("/babyoverview"))
+            .catch(error => console.log("DELETE Error: " + error))
     }
+
 
     return <>
         <StyledHeader>
             <h1>{foundBaby.name}</h1>
         </StyledHeader>
-        <StyledSection>
+        <StyledForm>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
-            <StyledP>{foundBaby.birthday}</StyledP>
+            <StyledP id="name" value={foundBaby.birthday}></StyledP>
             <StyledLabel htmlFor="weight">Gewicht in Gramm</StyledLabel>
-            <StyledP>{foundBaby.weight}</StyledP>
+            <StyledP id="weight" value={foundBaby.weight}></StyledP>
             <StyledLabel htmlFor="height">Größe in Zentimeter</StyledLabel>
-            <StyledP>{foundBaby.height}</StyledP>
+            <StyledP id="height" value={foundBaby.height}></StyledP>
             <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
-            <StyledP>{foundBaby.gender}</StyledP>
-        </StyledSection>
+            <StyledP id="gender" value={foundBaby.gender}></StyledP>
+        </StyledForm>
         <StyledSection2>
             <StyledButton>Essen</StyledButton>
             <StyledButton>Schlafen</StyledButton>
         </StyledSection2>
         <StyledSection2>
-            <StyledButton1 onClick={handleEditPage}>Ändern</StyledButton1>
+            <StyledButton1>Speichern</StyledButton1>
+            <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
         </StyledSection2>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
         </StyledButton2>
-
     </>;
 }
 
@@ -65,7 +70,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
 `
-const StyledSection = styled.section`
+const StyledForm = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -93,7 +98,7 @@ const StyledButton2 = styled.button`
   width: 100%;
 `
 
-const StyledP = styled.p`
+const StyledP = styled.input`
   font-family: Gruenewald_VA_normal, sans-serif;
   font-size: 1.5rem;
   color: var(--color-black);
@@ -101,6 +106,7 @@ const StyledP = styled.p`
   padding: 5px 20px 5px 20px;
   border: 1px solid var(--color-background);
   border-radius: 1rem;
+  margin: 1.5rem;
 `
 const StyledSection2 = styled.section`
   display: flex;
@@ -132,8 +138,18 @@ const StyledButton1 = styled.button`
   color: var(--color-background);
   font-family: ubuntu, sans-serif;
 `
-
-
+const StyledButton3 = styled.button`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  background-color: transparent;
+  border: 1px solid var(--color-deleteRed);
+  border-radius: 1rem;
+  margin: 0.5rem;
+  color: var(--color-deleteRed);
+  font-family: ubuntu, sans-serif;
+`
 const StyledLabel = styled.label`
   font-family: KGPrimaryPenmanshipLined, sans-serif;
   font-size: 2.6rem;
