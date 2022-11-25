@@ -200,8 +200,22 @@ class IntegrationTest {
     @Test
     @DirtiesContext
     void updateBabyWithNotExistingIDAndReturn400() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/babies/1"))
-                .andExpect(status().is(400));
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/babies/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                      "id": "2",
+                                      "name": "Rabbit",
+                                      "birthday": "01.01.2000",
+                                      "weight": "8000",
+                                      "height": "76",
+                                      "gender": "w"
+                                }
+                                """))
+                .andExpect(status().is(400))
+                .andExpect(status().reason("The id in the url does not match the request body's id"));
+
     }
+
 
 }
