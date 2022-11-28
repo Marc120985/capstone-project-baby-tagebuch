@@ -6,7 +6,6 @@ import BabyPage from "./BabyPage";
 import axios from "axios";
 import Homepage from "./Homepage";
 import styled from "styled-components";
-import BabyEditPage from "./BabyEditPage";
 
 
 export default function App() {
@@ -36,7 +35,6 @@ export default function App() {
                 <Route path={"/babyoverview"} element={<Babyoverview babies={babies}/>}/>
                 <Route path={"/newbaby"} element={<NewBaby getAllBabies={getAllBabies}/>}/>
                 <Route path={"/baby/:id"} element={<BabyPage babies={babies} getAllBabies={getAllBabies}/>}/>
-                <Route path={"/babyedit/:id"} element={<BabyEditPage babies={babies} getAllBabies={getAllBabies}/>}/>
             </Routes>
         </main>
         <footer><StyledP>© 2022 by Marc</StyledP></footer>

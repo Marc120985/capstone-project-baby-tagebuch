@@ -42,19 +42,19 @@ export default function NewBaby(props: NewBabyProps) {
                 <StyleDiv>
                     <StyledLabel htmlFor="name">Name</StyledLabel>
                     <StyledInput id="name" name="name" value={newBaby.name} onChange={handleChange}
-                                 placeholder={"John"}/>
+                                 placeholder={"John"} required/>
                     <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
                     <StyledInput id="birthday" name="birthday" value={newBaby.birthday} onChange={handleChange}
-                                 placeholder={"01.01.2022"}/>
+                                 placeholder={"01.01.2022"} required/>
                     <StyledLabel htmlFor="weight">Gewicht</StyledLabel>
                     <StyledInput id="weight" name="weight" value={newBaby.weight} onChange={handleChange}
-                                 placeholder={"Gewicht in Gramm"}/>
+                                 placeholder={"Gewicht in Gramm"} required/>
                     <StyledLabel htmlFor="height">Größe</StyledLabel>
                     <StyledInput id="height" name="height" value={newBaby.height} onChange={handleChange}
-                                 placeholder={"Größe in cm"}/>
+                                 placeholder={"Größe in cm"} required/>
                     <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
                     <StyledInput id="gender" name="gender" value={newBaby.gender} onChange={handleChange}
-                                 placeholder={"Junge/Mädchen/Divers"}/>
+                                 placeholder={"Junge/Mädchen/Divers"} required/>
                     <StyledButton type="submit">Speichern</StyledButton>
                 </StyleDiv>
             </StyledForm>
