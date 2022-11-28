@@ -26,7 +26,6 @@ export default function BabyEditPage(props: babyProps) {
         return <div>Baby nicht gefunden</div>
     }
 
-    // const [name, setName] = useState(props.foundBaby)
 
     function deleteBaby(event: FormEvent<HTMLButtonElement>) {
         event.preventDefault()
@@ -35,6 +34,12 @@ export default function BabyEditPage(props: babyProps) {
             .then(() => navigate("/babyoverview"))
             .catch(error => console.log("DELETE Error: " + error))
     }
+
+    // function deleteBabyQuestion() {
+    //     if (window.confirm("Do you really want to delete this project?")) {
+    //         deleteBaby(FormEvent<HTMLButtonElement>)
+    //     }
+    // }
 
 
     return <>
