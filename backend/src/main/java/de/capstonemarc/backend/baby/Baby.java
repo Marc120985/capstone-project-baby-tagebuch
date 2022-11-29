@@ -7,5 +7,6 @@ public record Baby(
         String weight,
         String height,
         String gender
+
 ) {
 }

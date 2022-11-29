@@ -26,6 +26,7 @@ export default function BabyPage(props: babyProps) {
     const [updateHeight, setUpdateHeight] = useState(foundedBaby.height)
     const [updateGender, setUpdateGender] = useState(foundedBaby.gender)
     const [file, setFile] = useState<FileList | null>(null)
+    const [uploadedFileName, setUploadedFileName] = useState("")
     let fileData = new FormData();
     fileData.append("file", file ? file[0] : new File([""], "empty"));
 
@@ -71,7 +72,10 @@ export default function BabyPage(props: babyProps) {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
-        });
+        })
+            .then((response) => setUploadedFileName(response.request.response))
+            .then(() => setIsUpload(false))
+            .catch(error => console.log("Upload Error: " + error));
 
     }
 
