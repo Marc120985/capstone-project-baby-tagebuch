@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router";
-import Babyoverview from "./Babyoverview";
-import NewBaby from "./NewBaby";
-import BabyPage from "./BabyPage";
+import Babyoverview from "./baby/Babyoverview";
+import NewBaby from "./baby/NewBaby";
+import BabyPage from "./baby/BabyPage";
 import axios from "axios";
 import Homepage from "./Homepage";
 import styled from "styled-components";
