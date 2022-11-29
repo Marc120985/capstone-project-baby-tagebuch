@@ -16,7 +16,8 @@ export default function BabyPage(props: babyProps) {
     const id = params.id;
     const navigate = useNavigate();
     const [editBaby, setEditBaby] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isDelete, setIsDelete] = useState(false);
+    const [isUpload, setIsUpload] = useState(false);
     const foundBaby = props.babies.find(element => element.id === id)
     const foundedBaby = foundBaby ? foundBaby : {id: "", name: "", birthday: "", weight: "", height: "", gender: ""}
     const [updateName, setUpdateName] = useState(foundedBaby.name)
@@ -24,6 +25,9 @@ export default function BabyPage(props: babyProps) {
     const [updateWeight, setUpdateWeight] = useState(foundedBaby.weight)
     const [updateHeight, setUpdateHeight] = useState(foundedBaby.height)
     const [updateGender, setUpdateGender] = useState(foundedBaby.gender)
+    const [file, setFile] = useState<FileList | null>(null)
+    let fileData = new FormData();
+    fileData.append("file", file ? file[0] : new File([""], "empty"));
 
     if (!id) {
         return <div>ID Error</div>
@@ -62,16 +66,38 @@ export default function BabyPage(props: babyProps) {
         setEditBaby(true);
     }
 
+    function uploadBabyPic() {
+        axios.post("/api/pictures/upload", fileData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
+    }
+
     if (editBaby) {
         return <>
-            {!isLoading && (
+            {isDelete && (
                 <StyledP2>
                     <StyledP3>
                         <StyledP5>Möchtest du wirklich dein Baby <br/>
                             {foundBaby.name} löschen?</StyledP5>
                         <StyledP4>
-                            <StyledButton1 onClick={() => setIsLoading(true)}>Abbrechen</StyledButton1>
+                            <StyledButton1 onClick={() => setIsDelete(true)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
+                        </StyledP4>
+                    </StyledP3>
+                </StyledP2>
+            )}
+            {isUpload && (
+                <StyledP2>
+                    <StyledP3>
+                        <StyledP5>Wähle dein Profilbild für dein Baby <br/>
+                            {foundBaby.name} aus.</StyledP5>
+                        <input type={"file"} onChange={(e) => setFile(e.target.files)}/>
+                        <StyledP4>
+                            <StyledButton1 onClick={() => setIsUpload(false)}>Abbrechen</StyledButton1>
+                            <StyledButton3 onClick={uploadBabyPic}>Hochladen</StyledButton3>
                         </StyledP4>
                     </StyledP3>
                 </StyledP2>
@@ -99,7 +125,8 @@ export default function BabyPage(props: babyProps) {
             </StyledSection2>
             <StyledSection2>
                 <StyledButton1 onClick={updateBabyToBackend}>Speichern</StyledButton1>
-                <StyledButton3 onClick={() => setIsLoading(false)}>Löschen</StyledButton3>
+                <StyledButton3 onClick={() => setIsDelete(true)}>Löschen</StyledButton3>
+                <StyledButton3 onClick={() => setIsUpload(true)}>Profilbild hochladen</StyledButton3>
             </StyledSection2>
             <StyledButton2>
                 <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
