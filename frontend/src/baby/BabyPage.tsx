@@ -5,6 +5,10 @@ import styled from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
+type Message = {
+    message: string
+}
+
 type babyProps = {
     babies: BabyModel[],
     getAllBabies: () => void
@@ -26,8 +30,12 @@ export default function BabyPage(props: babyProps) {
     const [updateHeight, setUpdateHeight] = useState(foundedBaby.height)
     const [updateGender, setUpdateGender] = useState(foundedBaby.gender)
     const [file, setFile] = useState<FileList | null>(null)
-    const [uploadedFileName, setUploadedFileName] = useState("")
+    const [rawData, setRawData] = useState<Message>({message: ""})
+    const [uploadedFileName, setUploadedFileName] = useState(props.babies.find(element => element.id === id)?.profilePicture.name)
+    const [fileUrl, setFileUrl] = useState(props.babies.find(element => element.id === id)?.profilePicture.url)
     let fileData = new FormData();
+
+
     fileData.append("file", file ? file[0] : new File([""], "empty"));
 
     if (!id) {
@@ -54,13 +62,19 @@ export default function BabyPage(props: babyProps) {
             .catch(error => console.log("Edit Error: " + error))
     }
 
+    const profilePicture = {
+        name: uploadedFileName,
+        url: fileUrl
+
+    }
     const babyToUpdate = {
         id: id,
         name: updateName,
         birthday: updateBirthday,
         weight: updateWeight,
         height: updateHeight,
-        gender: updateGender
+        gender: updateGender,
+        profilePicture
     }
 
     function handleEditPage() {
@@ -73,11 +87,17 @@ export default function BabyPage(props: babyProps) {
                 "Content-Type": "multipart/form-data"
             }
         })
-            .then((response) => setUploadedFileName(response.request.response))
+            .then((response) => setRawData(response.request.response))
             .then(() => setIsUpload(false))
+            .then(updateBabyToBackend)
+            .then(() => setFileUrl("/api/pictures/files/" + uploadedFileName))
             .catch(error => console.log("Upload Error: " + error));
 
     }
+
+    const fileNameTest = rawData.message
+    console.log(fileNameTest)
+
 
     if (editBaby) {
         return <>
