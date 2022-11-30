@@ -26,7 +26,7 @@ export default function App() {
             })
     }
     useEffect(getAllBabies, [])
-
+    console.log(babies)
 
     return <>
         <main>

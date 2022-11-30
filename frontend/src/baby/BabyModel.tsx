@@ -5,4 +5,5 @@ export type BabyModel = {
     weight: string,
     height: string,
     gender: string,
+    profilePicture: { name: string, url: string },
 }
