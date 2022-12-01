@@ -4,6 +4,7 @@ import {useParams} from "react-router";
 import styled from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Icon} from '@iconify/react';
 
 
 type babyProps = {
@@ -140,10 +141,15 @@ export default function BabyPage(props: babyProps) {
                 </StyledP2>
             )}
             <StyledForm onSubmit={updateBabyToBackend}>
-                <StyledHeader>
+                <StyledHeader2>
                     <StyledInputH1 value={updateName} onChange={(e) => setUpdateName(e.target.value)}/>
-                    <StyledImg src={fileUrl} alt={"Baby Bild"}/>
-                </StyledHeader>
+                    <StyledDivUploadButton>
+                        <StyledDiv2 onClick={setIsUploadBabyPic}>
+                            <Icon icon="material-symbols:upload-rounded" color="var(--color-background)" width="22"/>
+                        </StyledDiv2>
+                        <StyledImg src={fileUrl} alt={"Baby Bild"}/>
+                    </StyledDivUploadButton>
+                </StyledHeader2>
                 <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
                 <StyledInput id="birthday" value={updateBirthday}
                              onChange={(e) => setUpdateBirthday(e.target.value)}></StyledInput>
@@ -174,7 +180,9 @@ export default function BabyPage(props: babyProps) {
     return <>
         <StyledHeader>
             <h1>{foundBaby.name}</h1>
-            <StyledImg src={fileUrl} alt={"Baby Bild"}/>
+            <StyledDivUploadButton>
+                <StyledImg src={fileUrl} alt={"Baby Bild"}/>
+            </StyledDivUploadButton>
         </StyledHeader>
         <StyledSection>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
@@ -199,9 +207,22 @@ export default function BabyPage(props: babyProps) {
     </>;
 }
 
+const StyledDiv2 = styled.div`
+  position: relative;
+  left: 210px;
+  top: 35px;
+  margin: -20px 0 0 0;
+`
+
+const StyledDivUploadButton = styled.div`
+
+  width: 22%;
+  height: 22%;
+`
+
 const StyledImg = styled.img`
-  width: 20%;
-  height: 20%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 50%;
   margin: 0 0 10px 0;
@@ -213,6 +234,15 @@ const StyledHeader = styled.header`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+`
+
+const StyledHeader2 = styled.header`
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 35px 0;
 `
 
 const StyledSection = styled.section`
@@ -348,6 +378,7 @@ const StyledP2 = styled.p`
   display: flex;
   flex-direction: column;
   position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
