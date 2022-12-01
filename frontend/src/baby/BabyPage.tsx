@@ -98,7 +98,8 @@ export default function BabyPage(props: babyProps) {
             .then(() => setEditBaby(false))
             .catch(error => console.log("Edit Error: " + error))
     }
-    const updateBabyToBackend = () => {
+    const updateBabyToBackend = (event: any) => {
+        event.preventDefault()
         updateBabyGo()
     }
 
