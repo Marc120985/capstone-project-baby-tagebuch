@@ -4,7 +4,6 @@ import {useParams} from "react-router";
 import styled from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import {Icon} from '@iconify/react';
 
 
 type babyProps = {
@@ -144,9 +143,6 @@ export default function BabyPage(props: babyProps) {
                 <StyledHeader2>
                     <StyledInputH1 value={updateName} onChange={(e) => setUpdateName(e.target.value)}/>
                     <StyledDivUploadButton>
-                        <StyledDiv2 onClick={setIsUploadBabyPic}>
-                            <Icon icon="material-symbols:upload-rounded" color="var(--color-background)" width="22"/>
-                        </StyledDiv2>
                         <StyledImg src={fileUrl} alt={"Baby Bild"}/>
                     </StyledDivUploadButton>
                 </StyledHeader2>
@@ -207,12 +203,6 @@ export default function BabyPage(props: babyProps) {
     </>;
 }
 
-const StyledDiv2 = styled.div`
-  position: relative;
-  left: 210px;
-  top: 35px;
-  margin: -20px 0 0 0;
-`
 
 const StyledDivUploadButton = styled.div`
 
@@ -225,7 +215,6 @@ const StyledImg = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  margin: 0 0 10px 0;
 `
 
 const StyledHeader = styled.header`
