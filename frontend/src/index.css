@@ -19,6 +19,7 @@ body {
 
 h1 {
     font-family: Gistesy, sans-serif;
+    margin: 10px
 }
 
 @media (min-width: 600px) {

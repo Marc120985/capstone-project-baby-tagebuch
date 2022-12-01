@@ -1,13 +1,10 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {BabyModel} from "./BabyModel";
 import {useParams} from "react-router";
 import styled from "styled-components";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
-type Message = {
-    message: string
-}
 
 type babyProps = {
     babies: BabyModel[],
@@ -16,6 +13,7 @@ type babyProps = {
 
 export default function BabyPage(props: babyProps) {
 
+    const fileStartUrl = "/api/pictures/files/";
     const params = useParams()
     const id = params.id;
     const navigate = useNavigate();
@@ -30,13 +28,53 @@ export default function BabyPage(props: babyProps) {
     const [updateHeight, setUpdateHeight] = useState(foundedBaby.height)
     const [updateGender, setUpdateGender] = useState(foundedBaby.gender)
     const [file, setFile] = useState<FileList | null>(null)
-    const [rawData, setRawData] = useState<Message>({message: ""})
-    const [uploadedFileName, setUploadedFileName] = useState(props.babies.find(element => element.id === id)?.profilePicture.name)
+    const [fileName, setFileName] = useState(props.babies.find(element => element.id === id)?.profilePicture.name)
     const [fileUrl, setFileUrl] = useState(props.babies.find(element => element.id === id)?.profilePicture.url)
     let fileData = new FormData();
 
+    const profilePicture = {
+        name: fileName,
+        url: fileUrl
+
+    }
+
+    const babyToUpdate = {
+        id: id,
+        name: updateName,
+        birthday: updateBirthday,
+        weight: updateWeight,
+        height: updateHeight,
+        gender: updateGender,
+        profilePicture
+    }
+
 
     fileData.append("file", file ? file[0] : new File([""], "empty"));
+
+    function uploadBabyPic() {
+        axios.post("/api/pictures/upload", fileData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+            .then((response) => setFileName(response.request.response.split('"')[3]))
+            .then(() => setIsUpload(false))
+            .then(() => setTimeout(() => constructFileUrl(), 20))
+            .catch(error => console.log("Upload Error: " + error));
+
+    }
+
+    let constructFileUrl = () => {
+        setFileUrl(fileStartUrl.concat(fileName ? fileName : "empty"))
+
+    }
+    useEffect(constructFileUrl, [uploadBabyPic])
+
+    function setIsUploadBabyPic() {
+        setIsUpload(true)
+        setEditBaby(true)
+    }
+
 
     if (!id) {
         return <div>ID Error</div>
@@ -54,49 +92,24 @@ export default function BabyPage(props: babyProps) {
             .catch(error => console.log("DELETE Error: " + error))
     }
 
-    function updateBabyToBackend(event: any) {
-        event.preventDefault()
+    const updateBabyGo = () => {
         axios.put("/api/babies/" + id, babyToUpdate)
             .then(props.getAllBabies)
             .then(() => setEditBaby(false))
             .catch(error => console.log("Edit Error: " + error))
     }
-
-    const profilePicture = {
-        name: uploadedFileName,
-        url: fileUrl
-
+    const updateBabyToBackend = () => {
+        updateBabyGo()
     }
-    const babyToUpdate = {
-        id: id,
-        name: updateName,
-        birthday: updateBirthday,
-        weight: updateWeight,
-        height: updateHeight,
-        gender: updateGender,
-        profilePicture
-    }
+
 
     function handleEditPage() {
         setEditBaby(true);
     }
 
-    function uploadBabyPic() {
-        axios.post("/api/pictures/upload", fileData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-            .then((response) => setRawData(response.request.response))
-            .then(() => setIsUpload(false))
-            .then(updateBabyToBackend)
-            .then(() => setFileUrl("/api/pictures/files/" + uploadedFileName))
-            .catch(error => console.log("Upload Error: " + error));
 
-    }
-
-    const fileNameTest = rawData.message
-    console.log(fileNameTest)
+    console.log(fileName)
+    console.log(fileUrl)
 
 
     if (editBaby) {
@@ -129,6 +142,7 @@ export default function BabyPage(props: babyProps) {
             <StyledForm onSubmit={updateBabyToBackend}>
                 <StyledHeader>
                     <StyledInputH1 value={updateName} onChange={(e) => setUpdateName(e.target.value)}/>
+                    <StyledImg src={fileUrl} alt={"Baby Bild"}/>
                 </StyledHeader>
                 <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
                 <StyledInput id="birthday" value={updateBirthday}
@@ -150,7 +164,7 @@ export default function BabyPage(props: babyProps) {
             <StyledSection2>
                 <StyledButton1 onClick={updateBabyToBackend}>Speichern</StyledButton1>
                 <StyledButton3 onClick={() => setIsDelete(true)}>Löschen</StyledButton3>
-                <StyledButton3 onClick={() => setIsUpload(true)}>Profilbild hochladen</StyledButton3>
+                <StyledButton3 onClick={setIsUploadBabyPic}>Profilbild hochladen</StyledButton3>
             </StyledSection2>
             <StyledButton2>
                 <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
@@ -160,6 +174,7 @@ export default function BabyPage(props: babyProps) {
     return <>
         <StyledHeader>
             <h1>{foundBaby.name}</h1>
+            <StyledImg src={fileUrl} alt={"Baby Bild"}/>
         </StyledHeader>
         <StyledSection>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
@@ -184,10 +199,20 @@ export default function BabyPage(props: babyProps) {
     </>;
 }
 
+const StyledImg = styled.img`
+  width: 20%;
+  height: 20%;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 0 10px 0;
+`
+
 const StyledHeader = styled.header`
   background-color: var(--color-white);
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `
 
 const StyledSection = styled.section`
