@@ -127,27 +127,27 @@ export default function BabyPage(props: babyProps) {
     if (editBaby) {
         return <>
             {isDelete && (
-                <StyledP2>
-                    <StyledP3>
-                        <StyledP5>Möchtest du wirklich dein Baby {baby.name} löschen?</StyledP5>
-                        <StyledP4>
+                <StyledDiv>
+                    <StyledDiv2>
+                        <StyledP2>Möchtest du wirklich dein Baby {baby.name} löschen?</StyledP2>
+                        <StyledDiv3>
                             <StyledButton1 onClick={() => setIsDelete(false)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
-                        </StyledP4>
-                    </StyledP3>
-                </StyledP2>
+                        </StyledDiv3>
+                    </StyledDiv2>
+                </StyledDiv>
             )}
             {isUpload && (
-                <StyledP2>
-                    <StyledP3>
-                        <StyledP5>Wähle dein Profilbild für dein Baby {baby.name} aus.</StyledP5>
+                <StyledDiv>
+                    <StyledDiv2>
+                        <StyledP2>Wähle dein Profilbild für dein Baby {baby.name} aus.</StyledP2>
                         <input type={"file"} onChange={(e) => setFile(e.target.files)}/>
-                        <StyledP4>
+                        <StyledDiv3>
                             <StyledButton1 onClick={() => setIsUpload(false)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={uploadBabyPic}>Hochladen</StyledButton3>
-                        </StyledP4>
-                    </StyledP3>
-                </StyledP2>
+                        </StyledDiv3>
+                    </StyledDiv2>
+                </StyledDiv>
             )}
             <StyledForm onSubmit={updateBabyToBackend}>
                 <StyledHeader2>
@@ -207,9 +207,7 @@ export default function BabyPage(props: babyProps) {
     </>;
 }
 
-
 const StyledDivUploadButton = styled.div`
-
   width: 22%;
   height: 22%;
   cursor: pointer;
@@ -285,10 +283,7 @@ const StyledSection2 = styled.section`
 `
 
 const StyledButton = styled.button`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding: 1rem 5rem;
   background-color: var(--color-background);
   border: none;
   border-radius: 1rem;
@@ -354,10 +349,7 @@ const StyledInputH1 = styled.input`
 `
 
 const StyledButton3 = styled.button`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding: 1rem 5rem;
   background-color: transparent;
   border: 1px solid var(--color-deleteRed);
   border-radius: 1rem;
@@ -367,7 +359,7 @@ const StyledButton3 = styled.button`
   cursor: pointer;
 `
 
-const StyledP2 = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -381,7 +373,7 @@ const StyledP2 = styled.div`
   margin: 0;
 `
 
-const StyledP3 = styled.div`
+const StyledDiv2 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -395,7 +387,7 @@ const StyledP3 = styled.div`
   background-color: #fff;
 `
 
-const StyledP4 = styled.div`
+const StyledDiv3 = styled.div`
   color: #638e93;
   font-size: 1.5em;
   display: flex;
@@ -405,7 +397,7 @@ const StyledP4 = styled.div`
   margin-top: 10px;
 `
 
-const StyledP5 = styled.p`
+const StyledP2 = styled.p`
   font-family: KGPrimaryPenmanshipLined, sans-serif;
   font-size: 2.6rem;
   color: var(--color-background);
@@ -415,4 +407,3 @@ const StyledP5 = styled.p`
   text-align: center;
   padding: 20px;
 `
-
