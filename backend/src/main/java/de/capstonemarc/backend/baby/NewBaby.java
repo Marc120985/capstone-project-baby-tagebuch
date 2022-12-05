@@ -5,6 +5,5 @@ public record NewBaby(
         String weight,
         String height,
         String gender
-
 ) {
 }
