@@ -20,22 +20,51 @@ export default function BabyPage(props: babyProps) {
     const [editBaby, setEditBaby] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
     const [isUpload, setIsUpload] = useState(false);
-    const foundBaby = props.babies.find(element => element.id === id)
-    const foundedBaby = foundBaby ? foundBaby : {id: "", name: "", birthday: "", weight: "", height: "", gender: ""}
-    const [updateName, setUpdateName] = useState(foundedBaby.name)
-    const [updateBirthday, setUpdateBirthday] = useState(foundedBaby.birthday)
-    const [updateWeight, setUpdateWeight] = useState(foundedBaby.weight)
-    const [updateHeight, setUpdateHeight] = useState(foundedBaby.height)
-    const [updateGender, setUpdateGender] = useState(foundedBaby.gender)
+    const searchBaby = props.babies.find(element => element.id === id)
+    const [baby, setBaby] = useState<BabyModel>({
+        id: "",
+        name: "",
+        birthday: "",
+        weight: "",
+        height: "",
+        gender: "",
+        profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg"}
+    });
+    const [updateName, setUpdateName] = useState(baby.name)
+    const [updateBirthday, setUpdateBirthday] = useState(baby.birthday)
+    const [updateWeight, setUpdateWeight] = useState(baby.weight)
+    const [updateHeight, setUpdateHeight] = useState(baby.height)
+    const [updateGender, setUpdateGender] = useState(baby.gender)
     const [file, setFile] = useState<FileList | null>(null)
-    const [fileName, setFileName] = useState(props.babies.find(element => element.id === id)?.profilePicture.name)
-    const [fileUrl, setFileUrl] = useState(props.babies.find(element => element.id === id)?.profilePicture.url)
+    const [fileName, setFileName] = useState(baby.profilePicture.name)
+    const [fileUrl, setFileUrl] = useState(baby.profilePicture.url)
     let fileData = new FormData();
+
+    useEffect(() => {
+        setBaby(searchBaby ? searchBaby : {
+            id: "",
+            name: "",
+            birthday: "",
+            weight: "",
+            height: "",
+            gender: "",
+            profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg"}
+        })
+    }, [searchBaby])
+
+    useEffect(() => {
+        setUpdateName(baby.name)
+        setUpdateBirthday(baby.birthday)
+        setUpdateWeight(baby.weight)
+        setUpdateHeight(baby.height)
+        setUpdateGender(baby.gender)
+        setFileName(baby.profilePicture.name)
+        setFileUrl(baby.profilePicture.url)
+    }, [baby]);
 
     const profilePicture = {
         name: fileName,
         url: fileUrl
-
     }
 
     const babyToUpdate = {
@@ -48,8 +77,7 @@ export default function BabyPage(props: babyProps) {
         profilePicture
     }
 
-
-    fileData.append("file", file ? file[0] : new File([""], "empty"));
+    fileData.append("file", file ? file[0] : new File([""], "baby_placeholder.jpeg"));
 
     function uploadBabyPic() {
         axios.post("/api/pictures/upload", fileData, {
@@ -57,33 +85,29 @@ export default function BabyPage(props: babyProps) {
                 "Content-Type": "multipart/form-data"
             }
         })
-            // .then((response) => setFileName(response.request.response.split('"')[3]))
             .then((response) => setFileName(response.request.response))
             .then(() => setIsUpload(false))
-            .then(() => setTimeout(() => constructFileUrl(), 20))
             .catch(error => console.log("Upload Error: " + error));
-
     }
 
     let constructFileUrl = () => {
-        setFileUrl(fileStartUrl.concat(fileName ? fileName : "empty"))
-
+        setFileUrl(fileStartUrl.concat(fileName ? fileName : "baby_placeholder.jpeg"))
     }
-    useEffect(constructFileUrl, [uploadBabyPic, fileName])
+
+    useEffect(constructFileUrl, [fileName])
 
     function setIsUploadBabyPic() {
         setIsUpload(true)
         setEditBaby(true)
     }
 
-
-    if (!id) {
-        return <div>ID Error</div>
-    }
-
-    if (!foundBaby) {
-        return <div>Baby nicht gefunden</div>
-    }
+    // if (!id) {
+    //     return <div>ID Error</div>
+    // }
+    //
+    // if (!searchBaby) {
+    //     return <div>Baby nicht gefunden</div>
+    // }
 
     function deleteBaby(event: FormEvent<HTMLButtonElement>) {
         event.preventDefault()
@@ -104,22 +128,16 @@ export default function BabyPage(props: babyProps) {
         updateBabyGo()
     }
 
-
     function handleEditPage() {
         setEditBaby(true);
     }
-
-
-    console.log(fileName)
-    console.log(fileUrl)
-
 
     if (editBaby) {
         return <>
             {isDelete && (
                 <StyledP2>
                     <StyledP3>
-                        <StyledP5>Möchtest du wirklich dein Baby {foundBaby.name} löschen?</StyledP5>
+                        <StyledP5>Möchtest du wirklich dein Baby {baby.name} löschen?</StyledP5>
                         <StyledP4>
                             <StyledButton1 onClick={() => setIsDelete(false)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
@@ -130,7 +148,7 @@ export default function BabyPage(props: babyProps) {
             {isUpload && (
                 <StyledP2>
                     <StyledP3>
-                        <StyledP5>Wähle dein Profilbild für dein Baby {foundBaby.name} aus.</StyledP5>
+                        <StyledP5>Wähle dein Profilbild für dein Baby {baby.name} aus.</StyledP5>
                         <input type={"file"} onChange={(e) => setFile(e.target.files)}/>
                         <StyledP4>
                             <StyledButton1 onClick={() => setIsUpload(false)}>Abbrechen</StyledButton1>
@@ -173,20 +191,20 @@ export default function BabyPage(props: babyProps) {
     }
     return <>
         <StyledHeader>
-            <h1>{foundBaby.name}</h1>
+            <h1>{baby.name}</h1>
             <StyledDivUploadButton>
                 <StyledImg src={fileUrl} alt={"Baby Bild"}/>
             </StyledDivUploadButton>
         </StyledHeader>
         <StyledSection>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
-            <StyledP>{foundBaby.birthday}</StyledP>
+            <StyledP>{baby.birthday}</StyledP>
             <StyledLabel htmlFor="weight">Gewicht in Gramm</StyledLabel>
-            <StyledP>{foundBaby.weight}</StyledP>
+            <StyledP>{baby.weight}</StyledP>
             <StyledLabel htmlFor="height">Größe in Zentimeter</StyledLabel>
-            <StyledP>{foundBaby.height}</StyledP>
+            <StyledP>{baby.height}</StyledP>
             <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
-            <StyledP>{foundBaby.gender}</StyledP>
+            <StyledP>{baby.gender}</StyledP>
         </StyledSection>
         <StyledSection2>
             <StyledButton1 onClick={handleEditPage}>Ändern</StyledButton1>
