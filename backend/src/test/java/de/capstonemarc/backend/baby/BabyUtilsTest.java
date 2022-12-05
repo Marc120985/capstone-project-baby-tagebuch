@@ -15,4 +15,14 @@ class BabyUtilsTest {
         //then
         assertNotNull(actual);
     }
+
+    @Test
+    void generateUUIDSubstring() {
+        //given
+        BabyUtils babyUtils = new BabyUtils();
+        //when
+        String actual = babyUtils.generateRandomString(8);
+        //then
+        assertNotNull(actual);
+    }
 }
