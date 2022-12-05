@@ -22,6 +22,7 @@ public class BackendApplication implements CommandLineRunner {
     public void run(String... arg) throws Exception {
 //        storageService.deleteAll();
 //        storageService.init();
+//        This two methods are for testing the upload of pictures
     }
 
 }

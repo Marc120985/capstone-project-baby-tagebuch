@@ -30,7 +30,7 @@ public class PictureStorageServiceImpl implements PictureStorageService {
         try {
             Files.createDirectory(root);
         } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
+            throw new IllegalArgumentException("Could not initialize folder for upload!");
         }
     }
 
@@ -42,7 +42,7 @@ public class PictureStorageServiceImpl implements PictureStorageService {
             Files.move(this.root.resolve(file.getOriginalFilename()), this.root.resolve(fileNamenew));
             return fileNamenew;
         } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+            throw new IllegalArgumentException("Could not store the file. Error: " + e.getMessage());
         }
     }
 
@@ -55,10 +55,10 @@ public class PictureStorageServiceImpl implements PictureStorageService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("Could not read the file!");
+                throw new IllegalArgumentException("Could not read the file!");
             }
         } catch (MalformedURLException e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            throw new IllegalArgumentException("Error: " + e.getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ public class PictureStorageServiceImpl implements PictureStorageService {
                     .filter(path -> !path.equals(this.root))
                     .map(this.root::relativize);
         } catch (IOException e) {
-            throw new RuntimeException("Could not load the files!");
+            throw new IllegalArgumentException("Could not load the files!");
         }
     }
 
