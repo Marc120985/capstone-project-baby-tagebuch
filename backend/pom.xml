@@ -16,7 +16,7 @@
     <properties>
         <sonar.organization>marc120985-1</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.exclusions>**/BackendApplication*.java,**/pictures</sonar.exclusions>
+        <sonar.exclusions>**/BackendApplication*.java,**/pictures/**</sonar.exclusions>
         <java.version>19</java.version>
     </properties>
     <dependencies>
