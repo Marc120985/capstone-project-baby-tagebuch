@@ -101,14 +101,6 @@ export default function BabyPage(props: babyProps) {
         setEditBaby(true)
     }
 
-    // if (!id) {
-    //     return <div>ID Error</div>
-    // }
-    //
-    // if (!searchBaby) {
-    //     return <div>Baby nicht gefunden</div>
-    // }
-
     function deleteBaby(event: FormEvent<HTMLButtonElement>) {
         event.preventDefault()
         axios.delete("/api/babies/" + id)
@@ -220,6 +212,7 @@ const StyledDivUploadButton = styled.div`
 
   width: 22%;
   height: 22%;
+  cursor: pointer;
 `
 
 const StyledImg = styled.img`
@@ -271,6 +264,7 @@ const StyledButton2 = styled.button`
   border: none;
   background-color: transparent;
   width: 100%;
+  cursor: pointer;
 `
 
 const StyledP = styled.p`
@@ -301,19 +295,18 @@ const StyledButton = styled.button`
   margin: 0.5rem;
   color: var(--color-white);
   font-family: ubuntu, sans-serif;
+  cursor: pointer;
 `
 
 const StyledButton1 = styled.button`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding: 1rem 5rem;
   background-color: transparent;
   border: 1px solid var(--color-background);
   border-radius: 1rem;
   margin: 0.5rem;
   color: var(--color-background);
   font-family: ubuntu, sans-serif;
+  cursor: pointer;
 `
 
 const StyledLabel = styled.label`
@@ -371,6 +364,7 @@ const StyledButton3 = styled.button`
   margin: 0.5rem;
   color: var(--color-deleteRed);
   font-family: ubuntu, sans-serif;
+  cursor: pointer;
 `
 
 const StyledP2 = styled.div`
