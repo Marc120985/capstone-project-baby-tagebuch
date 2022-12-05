@@ -69,7 +69,7 @@ export default function BabyPage(props: babyProps) {
         setFileUrl(fileStartUrl.concat(fileName ? fileName : "empty"))
 
     }
-    useEffect(constructFileUrl, [uploadBabyPic])
+    useEffect(constructFileUrl, [uploadBabyPic, fileName])
 
     function setIsUploadBabyPic() {
         setIsUpload(true)
