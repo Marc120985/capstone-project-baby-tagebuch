@@ -119,10 +119,9 @@ export default function BabyPage(props: babyProps) {
             {isDelete && (
                 <StyledP2>
                     <StyledP3>
-                        <StyledP5>Möchtest du wirklich dein Baby <br/>
-                            {foundBaby.name} löschen?</StyledP5>
+                        <StyledP5>Möchtest du wirklich dein Baby {foundBaby.name} löschen?</StyledP5>
                         <StyledP4>
-                            <StyledButton1 onClick={() => setIsDelete(true)}>Abbrechen</StyledButton1>
+                            <StyledButton1 onClick={() => setIsDelete(false)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={deleteBaby}>Löschen</StyledButton3>
                         </StyledP4>
                     </StyledP3>
@@ -131,8 +130,7 @@ export default function BabyPage(props: babyProps) {
             {isUpload && (
                 <StyledP2>
                     <StyledP3>
-                        <StyledP5>Wähle dein Profilbild für dein Baby <br/>
-                            {foundBaby.name} aus.</StyledP5>
+                        <StyledP5>Wähle dein Profilbild für dein Baby {foundBaby.name} aus.</StyledP5>
                         <input type={"file"} onChange={(e) => setFile(e.target.files)}/>
                         <StyledP4>
                             <StyledButton1 onClick={() => setIsUpload(false)}>Abbrechen</StyledButton1>
@@ -239,10 +237,7 @@ const StyledSection = styled.section`
 `
 
 const StyledLink2 = styled(Link)`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding: 1rem 5rem;
   background-color: var(--color-background);
   display: flex;
   justify-content: center;
@@ -273,6 +268,7 @@ const StyledP = styled.p`
 const StyledSection2 = styled.section`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   background-color: white;
 `
 
@@ -359,7 +355,7 @@ const StyledButton3 = styled.button`
   font-family: ubuntu, sans-serif;
 `
 
-const StyledP2 = styled.p`
+const StyledP2 = styled.div`
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -373,7 +369,7 @@ const StyledP2 = styled.p`
   margin: 0;
 `
 
-const StyledP3 = styled.p`
+const StyledP3 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -387,12 +383,14 @@ const StyledP3 = styled.p`
   background-color: #fff;
 `
 
-const StyledP4 = styled.p`
+const StyledP4 = styled.div`
   color: #638e93;
   font-size: 1.5em;
   display: flex;
   justify-content: center;
   padding: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
 `
 
 const StyledP5 = styled.p`
@@ -403,4 +401,6 @@ const StyledP5 = styled.p`
   margin-block-start: 0;
   margin-block-end: 0;
   text-align: center;
+  padding: 20px;
 `
+
