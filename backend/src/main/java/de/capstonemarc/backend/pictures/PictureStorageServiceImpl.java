@@ -1,10 +1,14 @@
 package de.capstonemarc.backend.pictures;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.springframework.core.io.Resource;
@@ -17,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class PictureStorageServiceImpl implements PictureStorageService {
     private final Path root = Paths.get("uploads");
 
+
     @Override
     public void init() {
         try {
@@ -27,13 +32,17 @@ public class PictureStorageServiceImpl implements PictureStorageService {
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public String save(MultipartFile file) {
         try {
+            String fileName = Instant.now().getEpochSecond() + file.getOriginalFilename();
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            Files.move(this.root.resolve(file.getOriginalFilename()), this.root.resolve(fileName));
+            return fileName;
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }
+
 
     @Override
     public Resource load(String filename) {
