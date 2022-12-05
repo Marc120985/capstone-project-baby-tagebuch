@@ -1,8 +1,4 @@
 package de.capstonemarc.backend.baby;
-
-
-import de.capstonemarc.backend.pictures.PictureModel;
-
 public record NewBaby(
         String name,
         String birthday,
@@ -11,6 +7,4 @@ public record NewBaby(
         String gender
 
 ) {
-
-
 }
