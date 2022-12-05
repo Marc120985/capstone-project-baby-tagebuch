@@ -3,7 +3,6 @@ package de.capstonemarc.backend.pictures;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import de.capstonemarc.backend.pictures.PictureMessage;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

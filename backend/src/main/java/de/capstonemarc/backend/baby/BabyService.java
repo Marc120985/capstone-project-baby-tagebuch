@@ -15,7 +15,7 @@ public class BabyService {
 
     public Baby addBaby(NewBaby newBaby) {
         String id = babyUtils.generateUUID();
-        PictureModel profilePicture = new PictureModel("", "");
+        PictureModel profilePicture = new PictureModel("baby_placeholder.jpeg", "/api/pictures/files/baby_placeholder.jpeg");
         Baby baby = new Baby(id,
                 newBaby.name(),
                 newBaby.birthday(),

@@ -162,13 +162,11 @@ export default function BabyPage(props: babyProps) {
                              onChange={(e) => setUpdateGender(e.target.value)}></StyledInput>
             </StyledForm>
             <StyledSection2>
-                <StyledButton>Essen</StyledButton>
-                <StyledButton>Schlafen</StyledButton>
+                <StyledButton onClick={setIsUploadBabyPic}>Profilbild hochladen</StyledButton>
             </StyledSection2>
             <StyledSection2>
                 <StyledButton1 onClick={updateBabyToBackend}>Speichern</StyledButton1>
                 <StyledButton3 onClick={() => setIsDelete(true)}>Löschen</StyledButton3>
-                <StyledButton3 onClick={setIsUploadBabyPic}>Profilbild hochladen</StyledButton3>
             </StyledSection2>
             <StyledButton2>
                 <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
@@ -192,10 +190,6 @@ export default function BabyPage(props: babyProps) {
             <StyledLabel htmlFor="gender">Geschlecht</StyledLabel>
             <StyledP>{foundBaby.gender}</StyledP>
         </StyledSection>
-        <StyledSection2>
-            <StyledButton>Essen</StyledButton>
-            <StyledButton>Schlafen</StyledButton>
-        </StyledSection2>
         <StyledSection2>
             <StyledButton1 onClick={handleEditPage}>Ändern</StyledButton1>
         </StyledSection2>
