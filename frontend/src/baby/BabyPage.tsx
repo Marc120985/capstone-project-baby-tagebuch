@@ -57,7 +57,8 @@ export default function BabyPage(props: babyProps) {
                 "Content-Type": "multipart/form-data"
             }
         })
-            .then((response) => setFileName(response.request.response.split('"')[3]))
+            // .then((response) => setFileName(response.request.response.split('"')[3]))
+            .then((response) => setFileName(response.request.response))
             .then(() => setIsUpload(false))
             .then(() => setTimeout(() => constructFileUrl(), 20))
             .catch(error => console.log("Upload Error: " + error));
