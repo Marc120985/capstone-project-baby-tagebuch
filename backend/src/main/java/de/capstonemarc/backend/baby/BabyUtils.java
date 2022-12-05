@@ -10,4 +10,8 @@ public class BabyUtils {
         UUID randomID = UUID.randomUUID();
         return randomID.toString();
     }
+
+    public String generateRandomString(int length) {
+        return UUID.randomUUID().toString().substring(0, length);
+    }
 }

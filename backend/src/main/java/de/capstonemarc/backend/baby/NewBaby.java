@@ -1,8 +1,7 @@
 package de.capstonemarc.backend.baby;
 
-import de.capstonemarc.backend.pictures.PictureModel;
 
-import java.util.List;
+import de.capstonemarc.backend.pictures.PictureModel;
 
 public record NewBaby(
         String name,
@@ -10,6 +9,7 @@ public record NewBaby(
         String weight,
         String height,
         String gender
+
 ) {
 
 
