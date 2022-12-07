@@ -12,8 +12,8 @@ public record Baby(
         String weight,
         String height,
         String gender,
-        PictureModel profilePicture
-//        List<PictureModelGallery> pictureGallery
+        PictureModel profilePicture,
+        List<PictureModelGallery> pictureGallery
 
 ) {
 }
