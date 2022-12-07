@@ -1,6 +1,7 @@
 package de.capstonemarc.backend.baby;
 
 import de.capstonemarc.backend.pictures.PictureModel;
+import de.capstonemarc.backend.pictures.PictureModelGallery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,15 @@ public class BabyService {
     public Baby addBaby(NewBaby newBaby) {
         String id = babyUtils.generateUUID();
         PictureModel profilePicture = new PictureModel("baby_placeholder.jpeg", "/api/pictures/files/baby_placeholder.jpeg");
+        List<PictureModelGallery> pictureModelGallery = List.of(new PictureModelGallery("baby_placeholder.jpeg", "/api/pictures/files/baby_placeholder.jpeg"));
         Baby baby = new Baby(id,
                 newBaby.name(),
                 newBaby.birthday(),
                 newBaby.weight(),
                 newBaby.height(),
                 newBaby.gender(),
-                profilePicture);
+                profilePicture,
+                pictureModelGallery);
         return babyRepository.save(baby);
     }
 
@@ -47,7 +50,8 @@ public class BabyService {
                 baby.weight(),
                 baby.height(),
                 baby.gender(),
-                baby.profilePicture());
+                baby.profilePicture(),
+                baby.pictureGallery());
         return babyRepository.save(updatedBaby);
     }
 }
