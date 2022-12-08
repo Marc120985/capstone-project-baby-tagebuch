@@ -38,6 +38,8 @@ export default function BabyPage(props: babyProps) {
     const [file, setFile] = useState<FileList | null>(null)
     const [fileName, setFileName] = useState(baby.profilePicture.name)
     const [fileUrl, setFileUrl] = useState(baby.profilePicture.url)
+    const [messageStatus, setMessageStatus] = useState("");
+    const [error, setError] = useState("");
     let fileData = new FormData();
 
     useEffect(() => {
@@ -85,9 +87,26 @@ export default function BabyPage(props: babyProps) {
                 "Content-Type": "multipart/form-data"
             }
         })
-            .then((response) => setFileName(response.request.response))
-            .then(() => setIsUpload(false))
-            .catch(error => console.log("Upload Error: " + error));
+            .then((response) => response)
+            .then((response) => {
+                if (response.request.response) {
+                    setFileName(response.request.response);
+                }
+                if (response.status === 200) {
+                    setMessageStatus("Bild erfolgreich hochgeladen");
+                    (setTimeout(() => {
+                        setMessageStatus("")
+                    }, 2000));
+                    (setTimeout(() => setIsUpload(false), 2000));
+                }
+            })
+            .catch((error) => {
+                if (error.response.status === 417) {
+                    setError("Fehler beim hochladen, bitte versuche es erneut");
+                    (setTimeout(() => setError(""), 5000));
+                }
+                console.log("Error =>" + error)
+            })
     }
 
     let constructFileUrl = () => {
@@ -141,11 +160,12 @@ export default function BabyPage(props: babyProps) {
                 <StyledDiv>
                     <StyledDiv2>
                         <StyledP2>Wähle dein Profilbild für dein Baby {baby.name} aus.</StyledP2>
-                        <input type={"file"} onChange={(e) => setFile(e.target.files)}/>
+                        <input type={"file"} accept={"image/*"} onChange={(e) => setFile(e.target.files)}/>
                         <StyledDiv3>
                             <StyledButton1 onClick={() => setIsUpload(false)}>Abbrechen</StyledButton1>
                             <StyledButton3 onClick={uploadBabyPic}>Hochladen</StyledButton3>
                         </StyledDiv3>
+                        {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
                     </StyledDiv2>
                 </StyledDiv>
             )}
