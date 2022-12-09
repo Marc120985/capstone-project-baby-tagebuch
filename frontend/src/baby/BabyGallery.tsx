@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {BabyModel} from "./BabyModel";
 import {useParams} from "react-router";
 import {Link, useNavigate} from "react-router-dom";
@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {GalleryPictureModel} from "./GalleryPictureModel";
 import axios from "axios";
 import BabyGalleryCard from "./BabyGalleryCard";
+
 
 type babyProps = {
     babies: BabyModel[],
@@ -97,11 +98,48 @@ export default function BabyGallery(props: babyProps) {
                                 baby={baby}
                                 getAllBabies={props.getAllBabies}/>
     }
-    let pic = "";
-    const handleOpenPicture = (picture: any) => {
+    const [pic, setPic] = useState("")
+    const [picName, setPicName] = useState("")
+    const handleOpenPicture = (picture: GalleryPictureModel) => {
+        setPic(picture.url)
+        setPicName(picture.name)
         setPictureOpen(true);
-        pic = picture.url;
+        console.log(pic)
+
     };
+
+    function deletePicture() {
+        axios.delete("/api/babies/picturegallery/" + id, {
+            data: {
+                name: picName,
+                url: pic
+            }
+        })
+            .then((response) => response)
+            .then((response) => {
+                if (response.status === 200) {
+                    setMessageStatus("Bild erfolgreich gelöscht");
+                    (setTimeout(() => {
+                        setMessageStatus("")
+                    }, 2000));
+                    (setTimeout(() => {
+                        props.getAllBabies()
+                    }, 2000));
+                    (setTimeout(() => setPictureOpen(false), 2000));
+                }
+            })
+
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    setError("Fehler beim löschen, bitte versuche es erneut");
+                    (setTimeout(() => setError(""), 3000));
+                }
+                console.log("Error =>" + error)
+            })
+
+
+    }
+
     return <>
         {isUpload && (
             <StyledDiv>
@@ -116,7 +154,20 @@ export default function BabyGallery(props: babyProps) {
                 </StyledDiv2>
             </StyledDiv>
         )}
+        {pictureOpen && (
+            <StyledDiv>
+                <StyledDiv2>
+                    <StyledP2>Bild bearbeiten:</StyledP2>
 
+                    <StyledImg2 src={pic} alt={"Bild"}/>
+                    <StyledDiv3>
+                        <StyledButton1 onClick={() => setPictureOpen(false)}>Abbrechen</StyledButton1>
+                        <StyledButton3 onClick={deletePicture}>Loeschen</StyledButton3>
+                    </StyledDiv3>
+                    {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
+                </StyledDiv2>
+            </StyledDiv>
+        )}
 
         <StyledSection>
             <StyledHeader>
@@ -124,21 +175,10 @@ export default function BabyGallery(props: babyProps) {
             </StyledHeader>
             <StyledUl>
                 {baby.pictureGallery.map((picture: GalleryPictureModel) =>
-                    <StyledLi key={picture.name} onClick={() => setPictureOpen(!pictureOpen)}>
+                    <StyledLi key={picture.name} onClick={() => {
+                        handleOpenPicture(picture)
+                    }}>
                         <StyledImg2 src={picture.url} alt={picture.name}/>
-                        {pictureOpen && (
-                            <StyledDiv>
-                                <StyledDiv2>
-                                    <img src={picture.url} alt={picture.name}/>
-                                    <StyledP2>Bild bearbeiten:</StyledP2>
-                                    <StyledDiv3>
-                                        <StyledButton1 onClick={() => setPictureOpen(false)}>Abbrechen</StyledButton1>
-                                        <StyledButton3 onClick={uploadBabyPic}>Loeschen</StyledButton3>
-                                    </StyledDiv3>
-                                    {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
-                                </StyledDiv2>
-                            </StyledDiv>
-                        )}
                     </StyledLi>
                 )}
             </StyledUl>
@@ -149,6 +189,7 @@ export default function BabyGallery(props: babyProps) {
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
         </StyledButton2>
+
 
     </>;
 }
