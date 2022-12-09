@@ -47,12 +47,12 @@ export default function BabyGalleryCard(props: BabyGalleryCardProps) {
 
     }
 
-    return <StyledLi key={props.picture.name}>
+    return <div>
         <StyledImg2 src={props.picture.url} alt="Foto"/>
         <button onClick={() => deletePicture()}>Bild löschen</button>
         {messageStatus && <p>{messageStatus}</p>}
         {error && <p>{error}</p>}
-    </StyledLi>
+    </div>
 
         ;
 }
