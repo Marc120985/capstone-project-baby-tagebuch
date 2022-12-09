@@ -42,12 +42,25 @@ public class BabyController {
 
     @PutMapping(path = {"/picturegallery/{id}"})
     public List<PictureModelGallery> updateBabyPictureGallery(@PathVariable String id, @RequestBody PictureModelGallery pictureGallery) {
-        return babyService.updateBabyPictureGallery(id, pictureGallery);
+        try {
+            return babyService.updateBabyPictureGallery(id, pictureGallery);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping(path = {"/picturegallery/{id}"})
     public List<PictureModelGallery> getBabyPictureGallery(@PathVariable String id) {
         return babyService.getBabyPictureGallery(id);
+    }
+
+    @DeleteMapping(path = {"/picturegallery/{id}"})
+    public List<PictureModelGallery> deleteBabyPictureGallery(@PathVariable String id, @RequestBody PictureModelGallery pictureGallery) {
+        try {
+            return babyService.deleteBabyPictureGallery(id, pictureGallery);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
 }

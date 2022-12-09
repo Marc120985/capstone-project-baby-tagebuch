@@ -72,9 +72,8 @@ public class BabyService {
                 pictureModelGallery);
         if (pictureModelGallery.size() > 1 && pictureModelGallery.get(0).name().equals("gallery_placeholder.jpeg")) {
             pictureModelGallery.remove(0);
-            babyRepository.save(babyToUpdate);
         }
-
+        babyRepository.save(babyToUpdate);
         return pictureModelGallery;
     }
 
@@ -82,5 +81,17 @@ public class BabyService {
         Baby baby = babyRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Baby with id " + id + " not found"));
         return baby.pictureGallery();
+    }
+
+    public List<PictureModelGallery> deleteBabyPictureGallery(String id, PictureModelGallery pictureGallery) {
+        Baby baby = babyRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
+        List<PictureModelGallery> pictureModelGallery = baby.pictureGallery();
+        pictureModelGallery.remove(pictureGallery);
+        if (pictureModelGallery.isEmpty()) {
+            pictureModelGallery.add(new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg"));
+        }
+        babyRepository.save(baby);
+        return pictureModelGallery;
     }
 }
