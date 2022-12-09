@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {GalleryPictureModel} from "./GalleryPictureModel";
 import axios from "axios";
+import BabyGalleryCard from "./BabyGalleryCard";
 
 type babyProps = {
     babies: BabyModel[],
@@ -51,6 +52,7 @@ export default function BabyGallery(props: babyProps) {
     }, [searchBaby])
 
     let fileName = "";
+    const [openPicture, setOpenPicture] = useState(false);
 
     function uploadBabyPic() {
         axios.post("/api/pictures/upload/", fileData, {
@@ -89,6 +91,7 @@ export default function BabyGallery(props: babyProps) {
             .catch(error => console.log("Edit Error: " + error))
     }
 
+
     return <>
         {isUpload && (
             <StyledDiv>
@@ -103,20 +106,23 @@ export default function BabyGallery(props: babyProps) {
                 </StyledDiv2>
             </StyledDiv>
         )}
-        <StyledHeader>
-            <h1>{baby.name}</h1>
-        </StyledHeader>
-        <StyledUl>{baby.pictureGallery.map((picture: GalleryPictureModel) =>
-            <StyledLi key={picture.name}>
-                <img src={picture.url} alt="Foto"/>
-            </StyledLi>)}
-        </StyledUl>
-        <StyledSection2>
-            <StyledButton onClick={() => setIsUpload(!isUpload)}>Neues Babybild hinzufügen</StyledButton>
-        </StyledSection2>
+
+
+        <StyledSection>
+            <StyledHeader>
+                <h1>{baby.name}</h1>
+            </StyledHeader>
+            <StyledUl>{baby.pictureGallery.map((picture: GalleryPictureModel) =>
+                <BabyGalleryCard key={picture.name} picture={picture} baby={baby} getAllBabies={props.getAllBabies}/>)}
+            </StyledUl>
+            <StyledSection2>
+                <StyledButton onClick={() => setIsUpload(!isUpload)}>Neues Babybild hinzufügen</StyledButton>
+            </StyledSection2>
+        </StyledSection>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
         </StyledButton2>
+
     </>;
 }
 
@@ -163,11 +169,12 @@ const StyledDivUploadButton = styled.div`
   cursor: pointer;
 `
 
-const StyledImg = styled.img`
-  width: 100%;
+const StyledImg2 = styled.img`
+  width: 80%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  margin: 1rem 0 0 0;
+  border-radius: 1rem;
 `
 
 const StyledHeader2 = styled.header`
