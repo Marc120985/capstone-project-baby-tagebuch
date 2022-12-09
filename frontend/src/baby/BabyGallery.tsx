@@ -34,6 +34,7 @@ export default function BabyGallery(props: babyProps) {
         pictureGallery: []
     });
     let fileData = new FormData();
+    const [pictureOpen, setPictureOpen] = useState(false);
 
     fileData.append("file", file ? file[0] : new File([""], "baby_placeholder.jpeg"));
 
@@ -52,7 +53,6 @@ export default function BabyGallery(props: babyProps) {
     }, [searchBaby])
 
     let fileName = "";
-    const [openPicture, setOpenPicture] = useState(false);
 
     function uploadBabyPic() {
         axios.post("/api/pictures/upload/", fileData, {
@@ -91,7 +91,17 @@ export default function BabyGallery(props: babyProps) {
             .catch(error => console.log("Edit Error: " + error))
     }
 
-
+    const openBabyGalleryCard = (picture: GalleryPictureModel) => {
+        return <BabyGalleryCard key={picture.name}
+                                picture={picture}
+                                baby={baby}
+                                getAllBabies={props.getAllBabies}/>
+    }
+    let pic = "";
+    const handleOpenPicture = (picture: any) => {
+        setPictureOpen(true);
+        pic = picture.url;
+    };
     return <>
         {isUpload && (
             <StyledDiv>
@@ -112,8 +122,27 @@ export default function BabyGallery(props: babyProps) {
             <StyledHeader>
                 <h1>{baby.name}</h1>
             </StyledHeader>
-            <StyledUl>{baby.pictureGallery.map((picture: GalleryPictureModel) =>
-                <BabyGalleryCard key={picture.name} picture={picture} baby={baby} getAllBabies={props.getAllBabies}/>)}
+            <StyledUl>
+                {baby.pictureGallery.map((picture: GalleryPictureModel) =>
+                    <StyledLi key={picture.name}>
+                        <StyledButton1 onClick={() => setPictureOpen(!pictureOpen)}>
+                            <StyledImg2 src={picture.url} alt={picture.name}/>
+                        </StyledButton1>
+                        {pictureOpen && (
+                            <StyledDiv>
+                                <StyledDiv2>
+                                    <img src={picture.url} alt={picture.name}/>
+                                    <StyledP2>Bild bearbeiten:</StyledP2>
+                                    <StyledDiv3>
+                                        <StyledButton1 onClick={() => setPictureOpen(false)}>Abbrechen</StyledButton1>
+                                        <StyledButton3 onClick={uploadBabyPic}>Loeschen</StyledButton3>
+                                    </StyledDiv3>
+                                    {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
+                                </StyledDiv2>
+                            </StyledDiv>
+                        )}
+                    </StyledLi>
+                )}
             </StyledUl>
             <StyledSection2>
                 <StyledButton onClick={() => setIsUpload(!isUpload)}>Neues Babybild hinzufügen</StyledButton>
