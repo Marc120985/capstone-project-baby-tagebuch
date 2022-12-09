@@ -124,10 +124,8 @@ export default function BabyGallery(props: babyProps) {
             </StyledHeader>
             <StyledUl>
                 {baby.pictureGallery.map((picture: GalleryPictureModel) =>
-                    <StyledLi key={picture.name}>
-                        <StyledButton1 onClick={() => setPictureOpen(!pictureOpen)}>
-                            <StyledImg2 src={picture.url} alt={picture.name}/>
-                        </StyledButton1>
+                    <StyledLi key={picture.name} onClick={() => setPictureOpen(!pictureOpen)}>
+                        <StyledImg2 src={picture.url} alt={picture.name}/>
                         {pictureOpen && (
                             <StyledDiv>
                                 <StyledDiv2>
@@ -259,6 +257,10 @@ const StyledButton1 = styled.button`
   margin: 0.5rem;
   color: var(--color-background);
   font-family: ubuntu, sans-serif;
+  cursor: pointer;
+`
+const StyledButton5 = styled.button`
+  background-color: transparent;
   cursor: pointer;
 `
 
