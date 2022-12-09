@@ -28,7 +28,8 @@ export default function BabyPage(props: babyProps) {
         weight: "",
         height: "",
         gender: "",
-        profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg"}
+        profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg",},
+        pictureGallery: []
     });
     const [updateName, setUpdateName] = useState(baby.name)
     const [updateBirthday, setUpdateBirthday] = useState(baby.birthday)
@@ -50,7 +51,8 @@ export default function BabyPage(props: babyProps) {
             weight: "",
             height: "",
             gender: "",
-            profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg"}
+            profilePicture: {name: "baby_placeholder.jpeg", url: "/api/pictures/files/baby_placeholder.jpeg"},
+            pictureGallery: []
         })
     }, [searchBaby])
 
@@ -201,6 +203,12 @@ export default function BabyPage(props: babyProps) {
             </StyledButton2>
         </>
     }
+
+    function handleGoToGallery(e: FormEvent<HTMLButtonElement>) {
+        e.preventDefault()
+        navigate("/babygallery/" + id)
+    }
+
     return <>
         <StyledHeader>
             <h1>{baby.name}</h1>
@@ -220,6 +228,7 @@ export default function BabyPage(props: babyProps) {
         </StyledSection>
         <StyledSection2>
             <StyledButton1 onClick={handleEditPage}>Ändern</StyledButton1>
+            <StyledButton1 onClick={handleGoToGallery}>Fotoalbum</StyledButton1>
         </StyledSection2>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
