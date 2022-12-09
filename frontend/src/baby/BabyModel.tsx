@@ -1,4 +1,5 @@
 import {ProfilPictureModel} from "./ProfilPictureModel";
+import {GalleryPictureModel} from "./GalleryPictureModel";
 
 export type BabyModel = {
     id: string,
@@ -8,4 +9,5 @@ export type BabyModel = {
     height: string,
     gender: string,
     profilePicture: ProfilPictureModel,
+    pictureGallery: GalleryPictureModel[],
 }

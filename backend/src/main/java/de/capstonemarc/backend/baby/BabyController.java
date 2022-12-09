@@ -1,5 +1,7 @@
 package de.capstonemarc.backend.baby;
 
+
+import de.capstonemarc.backend.pictures.PictureModelGallery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +38,16 @@ public class BabyController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The id in the url does not match the request body's id");
         }
         return babyService.updateBaby(baby);
+    }
+
+    @PutMapping(path = {"/picturegallery/{id}"})
+    public List<PictureModelGallery> updateBabyPictureGallery(@PathVariable String id, @RequestBody PictureModelGallery pictureGallery) {
+        return babyService.updateBabyPictureGallery(id, pictureGallery);
+    }
+
+    @GetMapping(path = {"/picturegallery/{id}"})
+    public List<PictureModelGallery> getBabyPictureGallery(@PathVariable String id) {
+        return babyService.getBabyPictureGallery(id);
     }
 
 }

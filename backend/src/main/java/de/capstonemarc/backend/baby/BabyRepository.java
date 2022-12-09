@@ -5,6 +5,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BabyRepository extends MongoRepository<Baby, String> {
-
 }
-
