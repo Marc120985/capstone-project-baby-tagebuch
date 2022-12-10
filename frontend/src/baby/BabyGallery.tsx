@@ -1,12 +1,10 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BabyModel} from "./BabyModel";
 import {useParams} from "react-router";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {GalleryPictureModel} from "./GalleryPictureModel";
 import axios from "axios";
-import BabyGalleryCard from "./BabyGalleryCard";
-
 
 type babyProps = {
     babies: BabyModel[],
@@ -18,7 +16,6 @@ export default function BabyGallery(props: babyProps) {
     const fileStartUrl = "/api/pictures/files/";
     const params = useParams()
     const id = params.id;
-    const navigate = useNavigate();
     const [isUpload, setIsUpload] = useState(false);
     const [file, setFile] = useState<FileList | null>(null)
     const searchBaby = props.babies.find(element => element.id === id)
@@ -39,7 +36,6 @@ export default function BabyGallery(props: babyProps) {
     const [isDelete, setIsDelete] = useState(false);
 
     fileData.append("file", file ? file[0] : new File([""], "baby_placeholder.jpeg"));
-
 
     useEffect(() => {
         setBaby(searchBaby ? searchBaby : {
@@ -85,7 +81,6 @@ export default function BabyGallery(props: babyProps) {
             })
     }
 
-
     const updateBabyGo = (fileName: string) => {
         let fileUrl = fileStartUrl.concat(fileName ? fileName : "baby_placeholder.jpeg")
         axios.put("/api/babies/picturegallery/" + id, {name: fileName, url: fileUrl})
@@ -93,12 +88,6 @@ export default function BabyGallery(props: babyProps) {
             .catch(error => console.log("Edit Error: " + error))
     }
 
-    const openBabyGalleryCard = (picture: GalleryPictureModel) => {
-        return <BabyGalleryCard key={picture.name}
-                                picture={picture}
-                                baby={baby}
-                                getAllBabies={props.getAllBabies}/>
-    }
     const [pic, setPic] = useState("")
     const [picName, setPicName] = useState("")
     const handleOpenPicture = (picture: GalleryPictureModel) => {
@@ -130,7 +119,6 @@ export default function BabyGallery(props: babyProps) {
                     (setTimeout(() => setIsDelete(false), 20));
                 }
             })
-
             .catch((error) => {
                 if (error.response.status === 400) {
                     setError("Fehler beim löschen, bitte versuche es erneut");
@@ -138,10 +126,7 @@ export default function BabyGallery(props: babyProps) {
                 }
                 console.log("Error =>" + error)
             })
-
-
     }
-
 
     return <>
         {isUpload && (
@@ -154,6 +139,7 @@ export default function BabyGallery(props: babyProps) {
                         <StyledButton3 onClick={uploadBabyPic}>Hochladen</StyledButton3>
                     </StyledDiv3>
                     {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
+                    {error && <StyledP2>{error}</StyledP2>}
                 </StyledDiv2>
             </StyledDiv>
         )}
@@ -201,8 +187,6 @@ export default function BabyGallery(props: babyProps) {
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
         </StyledButton2>
-
-
     </>;
 }
 
@@ -221,6 +205,7 @@ const StyledButton2 = styled.button`
   width: 100%;
   cursor: pointer;
 `
+
 const StyledLink2 = styled(Link)`
   padding: 1rem 5rem;
   background-color: var(--color-background);
@@ -233,23 +218,19 @@ const StyledLink2 = styled(Link)`
   margin: 0.5rem;
   border: 1px solid white;
 `
+
 const StyledUl = styled.ul`
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `
+
 const StyledLi = styled.li`
   display: flex;
   justify-content: center;
   background-color: white;
   list-style: none;
-`
-
-const StyledDivUploadButton = styled.div`
-  width: 22%;
-  height: 22%;
-  cursor: pointer;
 `
 
 const StyledImg2 = styled.img`
@@ -258,6 +239,7 @@ const StyledImg2 = styled.img`
   margin: 0.8rem;
   border-radius: 1rem;
 `
+
 const StyledImg3 = styled.img`
   width: 80vw;
   height: 100%;
@@ -266,31 +248,12 @@ const StyledImg3 = styled.img`
   border-radius: 1rem;
 `
 
-const StyledHeader2 = styled.header`
-  background-color: var(--color-white);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 0 35px 0;
-`
-
 const StyledSection = styled.section`
   display: flex;
   justify-content: center;
   flex-direction: column;
   background-color: white;
   align-items: center;
-`
-
-const StyledP = styled.p`
-  font-family: Gruenewald_VA_normal, sans-serif;
-  font-size: 1.5rem;
-  color: var(--color-black);
-  text-shadow: 1px 1px 1px var(--color-background);
-  padding: 5px 20px 5px 20px;
-  border: 1px solid var(--color-background);
-  border-radius: 1rem;
 `
 
 const StyledSection2 = styled.section`
@@ -320,54 +283,6 @@ const StyledButton1 = styled.button`
   color: var(--color-background);
   font-family: ubuntu, sans-serif;
   cursor: pointer;
-`
-const StyledButton5 = styled.button`
-  background-color: transparent;
-  cursor: pointer;
-`
-
-const StyledLabel = styled.label`
-  font-family: KGPrimaryPenmanshipLined, sans-serif;
-  font-size: 2.6rem;
-  color: var(--color-background);
-  text-shadow: 1px 1px 1px black;
-  margin-block-start: 0;
-  margin-block-end: 0;
-`
-
-const StyledForm = styled.form`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: white;
-  align-items: center;
-`
-
-const StyledInput = styled.input`
-  font-family: Gruenewald_VA_normal, sans-serif;
-  font-size: 1.5rem;
-  color: var(--color-black);
-  text-shadow: 1px 1px 1px var(--color-background);
-  padding: 5px 20px 5px 20px;
-  border: 1px solid var(--color-background);
-  border-radius: 1rem;
-  margin: 1.5rem;
-`
-
-const StyledInputH1 = styled.input`
-  font-family: Gistesy, sans-serif;
-  @media (min-width: 600px) {
-    font-size: 3.2rem;
-  }
-  @media (min-width: 801px) {
-    font-size: 3.5rem;
-  }
-  color: var(--color-black);
-  text-shadow: 1px 1px 1px var(--color-background);
-  padding: 5px 20px 5px 20px;
-  border: 1px solid var(--color-background);
-  border-radius: 1rem;
-  margin: 1.5rem;
 `
 
 const StyledButton3 = styled.button`
