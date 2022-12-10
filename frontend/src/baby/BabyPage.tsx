@@ -168,6 +168,7 @@ export default function BabyPage(props: babyProps) {
                             <StyledButton3 onClick={uploadBabyPic}>Hochladen</StyledButton3>
                         </StyledDiv3>
                         {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
+                        {error && <StyledP2>{error}</StyledP2>}
                     </StyledDiv2>
                 </StyledDiv>
             )}
@@ -175,7 +176,7 @@ export default function BabyPage(props: babyProps) {
                 <StyledHeader2>
                     <StyledInputH1 value={updateName} onChange={(e) => setUpdateName(e.target.value)}/>
 
-                        <StyledImg src={fileUrl} alt={"Baby Bild"}/>
+                    <StyledImg src={fileUrl} alt={"Baby Bild"}/>
 
                 </StyledHeader2>
                 <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
@@ -212,7 +213,7 @@ export default function BabyPage(props: babyProps) {
     return <>
         <StyledHeader>
             <h1>{baby.name}</h1>
-                <StyledImg src={fileUrl} alt={"Baby Bild"}/>
+            <StyledImg src={fileUrl} alt={"Baby Bild"}/>
         </StyledHeader>
         <StyledSection>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
@@ -233,12 +234,6 @@ export default function BabyPage(props: babyProps) {
         </StyledButton2>
     </>;
 }
-
-const StyledDivUploadButton = styled.div`
-  width: 22%;
-  height: 22%;
-  cursor: pointer;
-`
 
 const StyledImg = styled.img`
   width: 20vw;
