@@ -158,8 +158,7 @@ export default function BabyGallery(props: babyProps) {
             <StyledDiv>
                 <StyledDiv2>
                     <StyledP2>Bild bearbeiten:</StyledP2>
-
-                    <StyledImg2 src={pic} alt={"Bild"}/>
+                    <StyledImg3 src={pic} alt={"Bild"}/>
                     <StyledDiv3>
                         <StyledButton1 onClick={() => setPictureOpen(false)}>Abbrechen</StyledButton1>
                         <StyledButton3 onClick={deletePicture}>Loeschen</StyledButton3>
@@ -223,6 +222,9 @@ const StyledLink2 = styled(Link)`
 `
 const StyledUl = styled.ul`
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 const StyledLi = styled.li`
   display: flex;
@@ -238,7 +240,13 @@ const StyledDivUploadButton = styled.div`
 `
 
 const StyledImg2 = styled.img`
-  width: 80%;
+  width: 20vw;
+  object-fit: cover;
+  margin: 0.8rem;
+  border-radius: 1rem;
+`
+const StyledImg3 = styled.img`
+  width: 80vw;
   height: 100%;
   object-fit: cover;
   margin: 1rem 0 0 0;
