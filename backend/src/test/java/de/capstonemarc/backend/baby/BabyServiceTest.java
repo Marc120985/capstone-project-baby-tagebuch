@@ -142,4 +142,21 @@ class BabyServiceTest {
         assertEquals(message2, "Baby with id " + id + " not found");
     }
 
+    @Test
+    void deletePictureFromDatabaseFail() {
+        //given
+        String testToDeleteString = "UUIDFromController";
+        PictureModelGallery pictureModelGallery1 = new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg");
+        //when
+        when(babyRepository.findById(testToDeleteString)).thenReturn(Optional.empty());
+        //then
+        String message2 = null;
+        try {
+            babyService.deleteBabyPictureGallery(testToDeleteString, pictureModelGallery1);
+        } catch (IllegalArgumentException e) {
+            message2 = e.getMessage();
+        }
+        assertEquals(message2, "Baby with id " + testToDeleteString + " not found");
+    }
+
 }
