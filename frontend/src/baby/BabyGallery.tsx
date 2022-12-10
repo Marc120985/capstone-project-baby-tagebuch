@@ -36,6 +36,7 @@ export default function BabyGallery(props: babyProps) {
     });
     let fileData = new FormData();
     const [pictureOpen, setPictureOpen] = useState(false);
+    const [isDelete, setIsDelete] = useState(false);
 
     fileData.append("file", file ? file[0] : new File([""], "baby_placeholder.jpeg"));
 
@@ -126,6 +127,7 @@ export default function BabyGallery(props: babyProps) {
                         props.getAllBabies()
                     }, 2000));
                     (setTimeout(() => setPictureOpen(false), 2000));
+                    (setTimeout(() => setIsDelete(false), 20));
                 }
             })
 
@@ -139,6 +141,7 @@ export default function BabyGallery(props: babyProps) {
 
 
     }
+
 
     return <>
         {isUpload && (
@@ -161,13 +164,23 @@ export default function BabyGallery(props: babyProps) {
                     <StyledImg3 src={pic} alt={"Bild"}/>
                     <StyledDiv3>
                         <StyledButton1 onClick={() => setPictureOpen(false)}>Abbrechen</StyledButton1>
-                        <StyledButton3 onClick={deletePicture}>Loeschen</StyledButton3>
+                        <StyledButton3 onClick={() => setIsDelete(true)}>Löschen</StyledButton3>
                     </StyledDiv3>
                     {messageStatus && <StyledP2>{messageStatus}</StyledP2>}
                 </StyledDiv2>
             </StyledDiv>
         )}
-
+        {isDelete && (
+            <StyledDiv>
+                <StyledDiv2>
+                    <StyledP2>Möchtest du das Bild löschen?</StyledP2>
+                    <StyledDiv3>
+                        <StyledButton1 onClick={() => setIsDelete(false)}>Abbrechen</StyledButton1>
+                        <StyledButton3 onClick={deletePicture}>Löschen</StyledButton3>
+                    </StyledDiv3>
+                </StyledDiv2>
+            </StyledDiv>
+        )}
         <StyledSection>
             <StyledHeader>
                 <h1>{baby.name}</h1>
