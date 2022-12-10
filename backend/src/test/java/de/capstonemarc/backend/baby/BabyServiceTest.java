@@ -1,6 +1,7 @@
 package de.capstonemarc.backend.baby;
 
 import de.capstonemarc.backend.pictures.PictureModel;
+import de.capstonemarc.backend.pictures.PictureModelGallery;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ class BabyServiceTest {
     BabyRepository babyRepository = mock(BabyRepository.class);
     BabyService babyService = new BabyService(babyRepository, babyUtils);
     PictureModel profilePicture = new PictureModel("baby_placeholder.jpeg", "/api/pictures/files/baby_placeholder.jpeg");
+    List<PictureModelGallery> pictureModelGallery = List.of(new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg"));
+
 
     @Test
     void addNewBabyToDatabase() {
@@ -27,7 +30,7 @@ class BabyServiceTest {
         String weight = "3.5";
         String height = "76";
         String gender = "w";
-        Baby babyWithId = new Baby(id, name, birthday, weight, height, gender, profilePicture);
+        Baby babyWithId = new Baby(id, name, birthday, weight, height, gender, profilePicture, pictureModelGallery);
         when(babyUtils.generateUUID()).thenReturn(id);
         when(babyRepository.save(babyWithId)).thenReturn(babyWithId);
         NewBaby babyWithoutId = new NewBaby(name, birthday, weight, height, gender);
@@ -56,7 +59,8 @@ class BabyServiceTest {
     void deleteBabyFromDatabase() {
         //given
         String testToDeleteString = "UUIDFromController";
-        Baby testBaby = new Baby(testToDeleteString, "Hasi", "12.13.2055", "3500", "76", "w", profilePicture);
+        Baby testBaby = new Baby(testToDeleteString, "Hasi", "12.13.2055", "3500", "76", "w", profilePicture, pictureModelGallery);
+        when(babyRepository.findById(testToDeleteString)).thenReturn(Optional.of(testBaby));
         //when
         when(babyRepository.findById(testToDeleteString)).thenReturn(java.util.Optional.of(testBaby));
         Baby actual = babyService.deleteBaby(testToDeleteString);
@@ -87,9 +91,13 @@ class BabyServiceTest {
     void updateBabyInDatabase() {
         //given
         String id = "123";
-        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture);
-        Baby updatetBaby = new Baby(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture);
-        Baby currentBaby = new Baby(id, "Klaus", "01.01.2000", "3500", "76", "w", profilePicture);
+        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture, pictureModelGallery);
+        Baby updatetBaby = new Baby(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture, pictureModelGallery);
+        when(babyRepository.findById(id)).thenReturn(Optional.of(updatetBaby));
+        when(babyRepository.save(updatetBaby)).thenReturn(updatetBaby);
+        Baby currentBaby = new Baby(id, "Klaus", "01.01.2000", "3500", "76", "w", profilePicture, pictureModelGallery);
+        when(babyRepository.findById(id)).thenReturn(Optional.of(currentBaby));
+        when(babyRepository.save(currentBaby)).thenReturn(currentBaby);
         //when
         when(babyRepository.findById(id)).thenReturn(Optional.of(currentBaby));
         when(babyRepository.save(updatetBaby)).thenReturn(updatetBaby);
@@ -104,7 +112,7 @@ class BabyServiceTest {
     void updateBabyInDatabaseWithoutId() {
         //given
         String id = "345";
-        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture);
+        BabyToUpdateDTO babyToUpdate = new BabyToUpdateDTO(id, "Hansi", "01.01.2000", "3500", "76", "w", profilePicture, pictureModelGallery);
         //when
         when(babyRepository.findById(id)).thenReturn(Optional.empty());
         //then
