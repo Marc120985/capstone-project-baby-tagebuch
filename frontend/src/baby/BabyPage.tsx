@@ -174,9 +174,9 @@ export default function BabyPage(props: babyProps) {
             <StyledForm onSubmit={updateBabyToBackend}>
                 <StyledHeader2>
                     <StyledInputH1 value={updateName} onChange={(e) => setUpdateName(e.target.value)}/>
-                    <StyledDivUploadButton>
+
                         <StyledImg src={fileUrl} alt={"Baby Bild"}/>
-                    </StyledDivUploadButton>
+
                 </StyledHeader2>
                 <StyledLabel htmlFor="birthday">Geburtstag</StyledLabel>
                 <StyledInput id="birthday" value={updateBirthday}
@@ -212,9 +212,7 @@ export default function BabyPage(props: babyProps) {
     return <>
         <StyledHeader>
             <h1>{baby.name}</h1>
-            <StyledDivUploadButton>
                 <StyledImg src={fileUrl} alt={"Baby Bild"}/>
-            </StyledDivUploadButton>
         </StyledHeader>
         <StyledSection>
             <StyledLabel htmlFor="name">Geburtstag</StyledLabel>
@@ -228,7 +226,7 @@ export default function BabyPage(props: babyProps) {
         </StyledSection>
         <StyledSection2>
             <StyledButton1 onClick={handleEditPage}>Ändern</StyledButton1>
-            <StyledButton1 onClick={handleGoToGallery}>Fotoalbum</StyledButton1>
+            <StyledButton onClick={handleGoToGallery}>Fotoalbum</StyledButton>
         </StyledSection2>
         <StyledButton2>
             <StyledLink2 to={"/Babyoverview"}>Alle Baby's</StyledLink2>
@@ -243,10 +241,11 @@ const StyledDivUploadButton = styled.div`
 `
 
 const StyledImg = styled.img`
-  width: 100%;
+  width: 20vw;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+  margin-bottom: 0.4rem;
 `
 
 const StyledHeader = styled.header`
