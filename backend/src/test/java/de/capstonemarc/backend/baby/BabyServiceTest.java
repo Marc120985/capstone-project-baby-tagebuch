@@ -124,5 +124,22 @@ class BabyServiceTest {
         }
         assertEquals(message2, "Baby with id " + id + " not found");
     }
-    
+
+    @Test
+    void updatePictureGalleryInDatabaseWithoutId() {
+        //given
+        String id = "345";
+        PictureModelGallery pictureModelGallery1 = new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg");
+        //when
+        when(babyRepository.findById(id)).thenReturn(Optional.empty());
+        //then
+        String message2 = null;
+        try {
+            babyService.updateBabyPictureGallery(id, pictureModelGallery1);
+        } catch (IllegalArgumentException e) {
+            message2 = e.getMessage();
+        }
+        assertEquals(message2, "Baby with id " + id + " not found");
+    }
+
 }
