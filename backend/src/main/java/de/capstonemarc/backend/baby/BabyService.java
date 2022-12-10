@@ -13,11 +13,15 @@ public class BabyService {
 
     private final BabyRepository babyRepository;
     private final BabyUtils babyUtils;
+    String galleryDefaultPicture = "gallery_placeholder.jpeg";
+    String profileDefaultPicture = "baby_placeholder.jpeg";
+    String errorMessagesStart = "Baby with id ";
+    String notFound = " not found";
 
     public Baby addBaby(NewBaby newBaby) {
         String id = babyUtils.generateUUID();
-        PictureModel profilePicture = new PictureModel("baby_placeholder.jpeg", "/api/pictures/files/baby_placeholder.jpeg");
-        List<PictureModelGallery> pictureModelGallery = List.of(new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg"));
+        PictureModel profilePicture = new PictureModel(profileDefaultPicture, "/api/pictures/files/baby_placeholder.jpeg");
+        List<PictureModelGallery> pictureModelGallery = List.of(new PictureModelGallery(galleryDefaultPicture, "/api/pictures/files/gallery_placeholder.jpeg"));
         Baby baby = new Baby(id,
                 newBaby.name(),
                 newBaby.birthday(),
@@ -35,14 +39,14 @@ public class BabyService {
 
     public Baby deleteBaby(String id) {
         Baby baby = babyRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
+                () -> new IllegalArgumentException(errorMessagesStart + id + notFound));
         babyRepository.delete(baby);
         return baby;
     }
 
     public Baby updateBaby(BabyToUpdateDTO baby) {
         Baby babyToUpdate = babyRepository.findById(baby.id()).orElseThrow(
-                () -> new IllegalArgumentException("Baby with id " + baby.id() + " not found"));
+                () -> new IllegalArgumentException(errorMessagesStart + baby.id() + notFound));
         Baby updatedBaby = BabyToUpdateDTO.updateBaby(
                 babyToUpdate.id(),
                 baby.name(),
@@ -58,7 +62,7 @@ public class BabyService {
 
     public List<PictureModelGallery> updateBabyPictureGallery(String id, PictureModelGallery pictureModel) {
         Baby babyToUpdate = babyRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
+                () -> new IllegalArgumentException(errorMessagesStart + id + notFound));
         List<PictureModelGallery> pictureModelGallery = babyToUpdate.pictureGallery();
         pictureModelGallery.add(new PictureModelGallery(pictureModel.name(), pictureModel.url()));
         BabyToUpdateDTO.updateBaby(
@@ -70,7 +74,7 @@ public class BabyService {
                 babyToUpdate.gender(),
                 babyToUpdate.profilePicture(),
                 pictureModelGallery);
-        if (pictureModelGallery.size() > 1 && pictureModelGallery.get(0).name().equals("gallery_placeholder.jpeg")) {
+        if (pictureModelGallery.size() > 1 && pictureModelGallery.get(0).name().equals(galleryDefaultPicture)) {
             pictureModelGallery.remove(0);
         }
         babyRepository.save(babyToUpdate);
@@ -79,17 +83,17 @@ public class BabyService {
 
     public List<PictureModelGallery> getBabyPictureGallery(String id) {
         Baby baby = babyRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
+                () -> new IllegalArgumentException(errorMessagesStart + id + notFound));
         return baby.pictureGallery();
     }
 
     public List<PictureModelGallery> deleteBabyPictureGallery(String id, PictureModelGallery pictureGallery) {
         Baby baby = babyRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Baby with id " + id + " not found"));
+                () -> new IllegalArgumentException(errorMessagesStart + id + notFound));
         List<PictureModelGallery> pictureModelGallery = baby.pictureGallery();
         pictureModelGallery.remove(pictureGallery);
         if (pictureModelGallery.isEmpty()) {
-            pictureModelGallery.add(new PictureModelGallery("gallery_placeholder.jpeg", "/api/pictures/files/gallery_placeholder.jpeg"));
+            pictureModelGallery.add(new PictureModelGallery(galleryDefaultPicture, "/api/pictures/files/gallery_placeholder.jpeg"));
         }
         babyRepository.save(baby);
         return pictureModelGallery;
