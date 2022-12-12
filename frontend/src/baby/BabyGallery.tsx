@@ -236,12 +236,12 @@ const StyledLi = styled.li`
 const StyledImg2 = styled.img`
   width: 20vw;
   object-fit: cover;
-  margin: 0.8rem;
+  margin: 0.5rem;
   border-radius: 1rem;
 `
 
 const StyledImg3 = styled.img`
-  width: 80vw;
+  width: 80%;
   height: 100%;
   object-fit: cover;
   margin: 1rem 0 0 0;
