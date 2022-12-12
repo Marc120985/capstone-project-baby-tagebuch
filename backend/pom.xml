@@ -11,8 +11,10 @@
     <groupId>de.capstonemarc</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>backend</name>
     <description>backend</description>
+
     <properties>
         <sonar.organization>marc120985-1</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
