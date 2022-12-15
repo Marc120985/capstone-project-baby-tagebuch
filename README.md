@@ -29,7 +29,7 @@ https://github.com/Marc120985/capstone-project-baby-tagebuch
 Mein Baby Tagebuch requests:
 https://github.com/Marc120985/capstone-project-baby-tagebuch/pulls?q=is%3Apr+is%3Aclosed
 
-# `chRat tech-stack:`
+# `Mein Baby Tagebuch tech-stack:`
 
 `IntelliJ` `Java v19` `Spring` `Basic-Auth` `React` `Create-React-App` `React-Router` `AWS-EC2` `Tomcat v9.0.70` 
 `MongoDB` `Maven` `Git` `Github` `Github-Actions` `Github-Projects` `Github-Issues` `Github-Pull-Requests` `War-file`
